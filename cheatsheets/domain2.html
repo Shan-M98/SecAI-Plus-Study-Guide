@@ -202,7 +202,7 @@
     </div>
     <div class="attack-card">
       <strong>Insecure Output Handling</strong>
-      <p>Failing to sanitize/validate model outputs before using them in downstream systems (e.g., injecting SQL via LLM output). OWASP LLM #2.</p>
+      <p>Failing to sanitize/validate model outputs before using them in downstream systems (e.g., injecting SQL via LLM output). Per OWASP LLM Top 10 v1.0 (numbering varies across versions).</p>
     </div>
   </div>
 
@@ -253,8 +253,8 @@
   <h3>Encryption States</h3>
   <table>
     <tr><th>State</th><th>What It Protects</th><th>Technologies</th><th>Example</th></tr>
-    <tr><td><strong>In Transit</strong></td><td>Data moving between systems (network)</td><td>TLS/SSL, HTTPS, VPN, IPsec</td><td>API call from app to AI model endpoint</td></tr>
-    <tr><td><strong>At Rest</strong></td><td>Data stored on disk/database</td><td>AES-256, BitLocker, LUKS, cloud KMS</td><td>Training dataset stored in cloud storage</td></tr>
+    <tr><td><strong>In Transit</strong></td><td>Data moving between systems (network)</td><td>TLS/SSL, HTTPS, VPN, IPsec <em style="color:#94a3b8;">(general examples &mdash; not AI-specific exam terms)</em></td><td>API call from app to AI model endpoint</td></tr>
+    <tr><td><strong>At Rest</strong></td><td>Data stored on disk/database</td><td>AES-256, BitLocker, LUKS, cloud KMS <em style="color:#94a3b8;">(general examples &mdash; not AI-specific exam terms)</em></td><td>Training dataset stored in cloud storage</td></tr>
     <tr><td><strong>In Use</strong></td><td>Data being actively processed in memory</td><td>Homomorphic encryption, secure enclaves (SGX/TrustZone), confidential computing</td><td>Model running inference on sensitive data without decrypting it</td></tr>
   </table>
 

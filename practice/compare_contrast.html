@@ -78,7 +78,7 @@ const pairs = [
   {
     termA: "Data Anonymization", defA: "Irreversibly removing or transforming PII so individuals can never be re-identified from the data.",
     termB: "Data Masking", defB: "Replacing sensitive data with realistic but fictitious values that preserve the original format and structure.",
-    keyDiff: "Anonymization is IRREVERSIBLE and destroys the link to individuals. Masking is REVERSIBLE and preserves data format for testing.",
+    keyDiff: "Anonymization is IRREVERSIBLE and destroys the link to individuals. Masking PRESERVES DATA FORMAT for testing/development (static masking is irreversible; dynamic masking can be reversible).",
     questions: [
       {text:"A hospital permanently strips all patient identifiers from records before using them in AI research, making re-identification impossible. Which technique is this?",answer:"A"},
       {text:"A development team replaces real customer credit card numbers with fake numbers in the same format (e.g., 4XXX-XXXX-XXXX-1234) so they can test their payment AI. Which technique is this?",answer:"B"},
@@ -235,12 +235,12 @@ const pairs = [
     ]
   },
   {
-    termA: "Shadow AI", defA: "The unauthorized use of AI tools by employees without IT/security knowledge, creating unknown risk exposure.",
-    termB: "Unsanctioned AI", defB: "AI tools that have not been approved through the organization's governance process, regardless of whether anyone is using them.",
-    keyDiff: "These are essentially the SAME CONCEPT from different angles. Shadow AI emphasizes the HIDDEN USAGE. Unsanctioned AI emphasizes LACK OF APPROVAL. The exam may test both terms.",
+    termA: "Shadow AI", defA: "The unauthorized USE of AI tools by employees without IT/security knowledge, creating unknown risk exposure through hidden activity.",
+    termB: "Unsanctioned AI", defB: "AI tools that LACK organizational APPROVAL through the governance process, regardless of whether anyone is actively using them.",
+    keyDiff: "Shadow AI focuses on unauthorized USAGE by employees (the behavior). Unsanctioned AI focuses on tools lacking formal APPROVAL (the governance status). A tool can be unsanctioned without anyone using it; Shadow AI implies active, hidden use.",
     questions: [
       {text:"Employees in marketing secretly use a free AI tool to process confidential data without telling IT. Which term best describes this behavior?",answer:"A"},
-      {text:"A governance audit identifies three AI tools being used across the company that were never reviewed or approved. How would these tools be classified?",answer:"B"},
+      {text:"During an inventory audit, the IT team discovers an AI transcription tool is listed in the app catalog but was never submitted for security review or governance approval. Which classification applies to this tool?",answer:"B"},
       {text:"A CISO discovers that multiple departments adopted AI tools on their own without any security review, creating unknown data exposure. Which term describes this situation?",answer:"A"}
     ]
   },
@@ -306,6 +306,26 @@ const pairs = [
       {text:"Customer records stored in a SQL database with defined columns for name, email, and transaction date. Which data type?",answer:"A",options:["Structured Data","Semi-structured Data","Unstructured Data"]},
       {text:"API responses in JSON format with nested fields that may or may not be present depending on the request. Which data type?",answer:"B",options:["Structured Data","Semi-structured Data","Unstructured Data"]},
       {text:"Security camera footage, analyst notes in free text, and audio recordings of interviews. Which data type?",answer:"C",options:["Structured Data","Semi-structured Data","Unstructured Data"]}
+    ]
+  },
+  {
+    termA: "Data Augmentation", defA: "Expanding a training dataset by creating modified copies of existing data (rotation, flipping, noise addition) to increase volume and variety.",
+    termB: "Data Balancing", defB: "Ensuring equal class representation in training data so the model does not become biased toward majority classes.",
+    keyDiff: "Augmentation EXPANDS the dataset with modified copies. Balancing EQUALIZES class representation (oversampling minority or undersampling majority).",
+    questions: [
+      {text:"A team triples their image dataset by creating rotated, flipped, and brightness-adjusted versions of every existing photo. Which technique is this?",answer:"A"},
+      {text:"A fraud detection dataset has 99% legitimate transactions and 1% fraud. The team oversamples fraud cases and undersamples legitimate ones to equalize the distribution. Which technique is this?",answer:"B"},
+      {text:"To improve model robustness, engineers add random noise and color shifts to existing training images, generating new training examples. Which technique is this?",answer:"A"}
+    ]
+  },
+  {
+    termA: "Prompt Templates", defA: "Pre-defined, parameterized prompt structures that constrain input format and standardize how queries are sent to AI models.",
+    termB: "Prompt Firewalls", defB: "Security tools that scan and filter incoming prompts for malicious content, injection attempts, and policy violations before they reach the AI model.",
+    keyDiff: "Prompt Templates CONSTRAIN INPUT FORMAT (structural control). Prompt Firewalls SCAN/FILTER for MALICIOUS CONTENT (security inspection).",
+    questions: [
+      {text:"A development team creates standardized query formats with fixed instruction sections and designated user-input fields to prevent users from modifying core instructions. Which mechanism is this?",answer:"A"},
+      {text:"A security layer analyzes every incoming user message for known injection patterns and adversarial strings, blocking malicious inputs before they reach the LLM. Which mechanism is this?",answer:"B"},
+      {text:"An architect designs a parameterized prompt structure where user input can only fill specific variables within a locked template. Which approach is this?",answer:"A"}
     ]
   }
 ];

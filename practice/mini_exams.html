@@ -194,7 +194,8 @@ const domainData = {
       {term:"ATLAS",definition:"Adversarial Threat Landscape for AI Systems — MITRE's framework for understanding and categorizing threats to AI/ML systems (acronym).",scenario:"On the exam, you are asked: what does the acronym ATLAS stand for in the context of AI security frameworks?"},
       {term:"RAG (acronym)",definition:"Retrieval-Augmented Generation — an architecture that combines information retrieval with text generation.",scenario:"On the exam, you see the acronym RAG. What does it stand for in the context of AI architectures?"},
       {term:"GAN (acronym)",definition:"Generative Adversarial Network — an AI architecture using competing generator and discriminator networks.",scenario:"On the exam, you need to identify what the acronym GAN stands for in AI terminology."},
-      {term:"MLOps",definition:"Machine Learning Operations — practices for deploying, monitoring, and managing ML models in production, analogous to DevOps for ML.",scenario:"A team implements automated pipelines for model versioning, A/B testing, performance monitoring, and automated retraining of production ML models. What practice discipline is this?"}
+      {term:"MLOps",definition:"Machine Learning Operations — practices for deploying, monitoring, and managing ML models in production, analogous to DevOps for ML.",scenario:"A team implements automated pipelines for model versioning, A/B testing, performance monitoring, and automated retraining of production ML models. What practice discipline is this?"},
+      {term:"AIRMF",definition:"AI Risk Management Framework — NIST's framework for identifying and mitigating AI risks.",scenario:"A compliance officer references AIRMF when building their organization's AI risk program. What does AIRMF stand for?"}
     ]
   }
 };
@@ -228,9 +229,18 @@ function makeReverseQ(t,allTerms){
   return{type:'Identify',question:`Which term is defined as: "${t.definition}"`,options:opts,correct:t.term,explanation:`${t.term}: ${t.definition}`};
 }
 function makeNotQ(t,allTerms){
-  const correctOthers=pick(allTerms.filter(x=>x.term!==t.term),3);
-  const opts=shuffle([t.term,...correctOthers.map(x=>x.term)]);
-  return{type:'NOT',question:`Which of the following is <strong>NOT</strong> a characteristic or example of concepts related to: "${correctOthers[0].definition}"`,options:opts,correct:t.term,explanation:`${t.term} is NOT related. It means: ${t.definition}. The described concept is ${correctOthers[0].term}.`};
+  // Pick the domain that t belongs to
+  const tDomainId=Object.keys(domainData).find(id=>domainData[id].terms.some(x=>x.term===t.term));
+  // Find a different domain to source the odd-one-out from
+  const otherDomainIds=Object.keys(domainData).filter(id=>id!==tDomainId);
+  const oddDomainId=otherDomainIds[Math.floor(Math.random()*otherDomainIds.length)];
+  const oddTerm=pick(domainData[oddDomainId].terms,1)[0];
+  // Pick 3 terms from the same domain as t (including t itself potentially)
+  const sameDomainTerms=domainData[tDomainId].terms.filter(x=>x.term!==oddTerm.term);
+  const threeSame=pick(sameDomainTerms,3);
+  const domainName=domainData[tDomainId].name;
+  const opts=shuffle([oddTerm.term,...threeSame.map(x=>x.term)]);
+  return{type:'NOT',question:`Which of the following does <strong>NOT</strong> belong to <em>${domainName}</em>?`,options:opts,correct:oddTerm.term,explanation:`${oddTerm.term} belongs to Domain ${oddDomainId} (${domainData[oddDomainId].name}), not ${domainName}.`};
 }
 
 function generateExam(domainId){

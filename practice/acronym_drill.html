@@ -208,6 +208,7 @@
     <!-- Start Screen -->
     <div class="start-screen" id="startScreen">
       <div class="acronym-display">READY?</div>
+      <p style="color:#fbbf24;font-size:0.95rem;margin-bottom:1rem;">This drill covers 29 acronyms from the exam material.<br>The 5 official Key Acronyms are: <strong>ATLAS, RAG, GAN, MLOps, AIRMF</strong>.</p>
       <p>You have <strong>60 seconds</strong> to expand as many acronyms as possible.<br>
       Answers are case insensitive. Minor typos are forgiven.<br>
       Press Enter or click Submit after each answer.</p>
@@ -254,7 +255,7 @@ const ACRONYMS = [
   { abbr: "GAN", full: "Generative Adversarial Network" },
   { abbr: "RAG", full: "Retrieval-Augmented Generation", alts: ["Retrieval Augmented Generation"] },
   { abbr: "ATLAS", full: "Adversarial Threat Landscape for Artificial Intelligence Systems", alts: ["Adversarial Threat Landscape for AI Systems"] },
-  { abbr: "AIRMF", full: "AI Risk Management Framework" },
+  { abbr: "AIRMF", full: "AI Risk Management Framework", alts: ["Artificial Intelligence Risk Management Framework"] },
   { abbr: "MLOps", full: "Machine Learning Operations" },
   { abbr: "OWASP", full: "Open Web Application Security Project" },
   { abbr: "MITRE", full: "Not an acronym, it is a proper name", alts: ["not an acronym", "proper name", "its not an acronym", "it is not an acronym", "it is a proper name", "a proper name", "not an acronym it is a proper name"] },
@@ -266,7 +267,7 @@ const ACRONYMS = [
   { abbr: "EU", full: "European Union" },
   { abbr: "PII", full: "Personally Identifiable Information" },
   { abbr: "MCP", full: "Model Context Protocol" },
-  { abbr: "CI/CD", full: "Continuous Integration / Continuous Deployment", alts: ["Continuous Integration / Continuous Delivery", "Continuous Integration Continuous Deployment", "Continuous Integration Continuous Delivery", "Continuous Integration/Continuous Deployment", "Continuous Integration/Continuous Delivery"] },
+  { abbr: "CI/CD", full: "Continuous Integration / Continuous Deployment", alts: ["Continuous Integration / Continuous Delivery", "Continuous Integration Continuous Deployment", "Continuous Integration Continuous Delivery", "Continuous Integration/Continuous Deployment", "Continuous Integration/Continuous Delivery", "Continuous Integration and Continuous Deployment", "Continuous Integration and Continuous Delivery"] },
   { abbr: "DoS", full: "Denial of Service" },
   { abbr: "TLS", full: "Transport Layer Security" },
   { abbr: "API", full: "Application Programming Interface" },
@@ -363,8 +364,12 @@ function showNext() {
   }
   const item = ACRONYMS[usedIndices[currentIndex]];
   document.getElementById('acronymShow').textContent = item.abbr;
-  const wordCount = item.full.split(' ').length;
-  document.getElementById('hintText').textContent = `(${wordCount} word${wordCount > 1 ? 's' : ''})`;
+  if (item.abbr === 'MITRE') {
+    document.getElementById('hintText').textContent = '(not an acronym)';
+  } else {
+    const wordCount = item.full.split(' ').length;
+    document.getElementById('hintText').textContent = `(${wordCount} word${wordCount > 1 ? 's' : ''})`;
+  }
   document.getElementById('answerInput').value = '';
   document.getElementById('feedback').textContent = '';
   document.getElementById('feedback').className = 'feedback';

@@ -271,7 +271,7 @@
                 <div class="card-name">AI Supply Chain Attacks</div>
                 <div class="card-desc">Compromises third-party components: datasets, libraries, pre-trained models, or ML frameworks.</div>
                 <div class="card-example"><strong>Example:</strong> A malicious update to a popular ML library injects code that exfiltrates model weights during training.</div>
-                <div class="card-defenses"><strong>Defenses:</strong> Software composition analysis, dependency scanning, SBOM/AIBOM, vendor security assessment, pinned dependencies</div>
+                <div class="card-defenses"><strong>Defenses:</strong> Software composition analysis, dependency scanning, SBOM/AIBOM (industry practice, not a standalone exam term), vendor security assessment, pinned dependencies</div>
             </div>
 
         </div>
@@ -442,13 +442,12 @@
                 <div class="d-mitigates">Mitigates:
                     <span class="tag inference">Prompt Injection</span>
                     <span class="tag inference">Jailbreaking</span>
-                    <span class="tag inference">Input Manipulation</span>
                     <span class="tag inference">Model DoS</span>
                 </div>
             </div>
 
             <div class="defense-card">
-                <div class="d-name">Differential Privacy</div>
+                <div class="d-name">Data Anonymization <span style="font-weight:400;font-size:0.8rem;color:#94a3b8;">(includes differential privacy techniques)</span></div>
                 <div class="d-mitigates">Mitigates:
                     <span class="tag extraction">Model Inversion</span>
                     <span class="tag extraction">Membership Inference</span>
@@ -465,7 +464,7 @@
             </div>
 
             <div class="defense-card">
-                <div class="d-name">Supply Chain Security (SBOM/AIBOM)</div>
+                <div class="d-name">Supply Chain Security (SBOM/AIBOM) <span style="font-weight:400;font-size:0.8rem;color:#94a3b8;">(industry practice, not a standalone exam term)</span></div>
                 <div class="d-mitigates">Mitigates:
                     <span class="tag training">AI Supply Chain Attacks</span>
                     <span class="tag training">Transfer Learning Attacks</span>
@@ -473,16 +472,15 @@
             </div>
 
             <div class="defense-card">
-                <div class="d-name">Output Sanitization</div>
+                <div class="d-name">Insecure Output Handling (Prevention) <span style="font-weight:400;font-size:0.8rem;color:#94a3b8;">&mdash; Data Redaction / Log Sanitization</span></div>
                 <div class="d-mitigates">Mitigates:
                     <span class="tag extraction">Insecure Output</span>
-                    <span class="tag extraction">AI Hallucinations</span>
                     <span class="tag inference">Prompt Injection</span>
                 </div>
             </div>
 
             <div class="defense-card">
-                <div class="d-name">Adversarial Training</div>
+                <div class="d-name">Model Validation <span style="font-weight:400;font-size:0.8rem;color:#94a3b8;">(includes adversarial testing)</span></div>
                 <div class="d-mitigates">Mitigates:
                     <span class="tag inference">Input Manipulation</span>
                     <span class="tag training">Data Poisoning</span>
@@ -490,7 +488,7 @@
             </div>
 
             <div class="defense-card">
-                <div class="d-name">Model Watermarking</div>
+                <div class="d-name">Watermarking (AI)</div>
                 <div class="d-mitigates">Mitigates:
                     <span class="tag extraction">Model Theft</span>
                 </div>
@@ -510,7 +508,7 @@
             <li><strong>Model inversion vs. membership inference:</strong> inversion reconstructs data, membership confirms data presence</li>
             <li><strong>Data poisoning vs. model poisoning:</strong> data poisoning corrupts training data, model poisoning modifies weights directly</li>
             <li><strong>Hallucinations</strong> are a risk, not an attack &mdash; but still testable on the exam</li>
-            <li><strong>Differential privacy</strong> is the key defense for both model inversion and membership inference</li>
+            <li><strong>Data anonymization</strong> (including differential privacy) is the key defense for both model inversion and membership inference</li>
             <li><strong>Rate limiting</strong> defends against DoS AND extraction attacks (model theft, inversion)</li>
         </ul>
     </div>
