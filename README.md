@@ -20,9 +20,9 @@ cd SecAI-Plus-Study-Guide
 |--------|--------|-------|
 | 1 - Basic AI Concepts | 17% | 36 |
 | 1.3 - AI Lifecycle Security | (included in D1) | 4 |
-| 2 - Securing AI Systems | 40% | 39 |
+| 2 - Securing AI Systems | 40% | 40 |
 | 3 - AI-assisted Security | 24% | 12 |
-| 4 - AI Governance, Risk & Compliance | 19% | 14 |
+| 4 - AI Governance, Risk & Compliance | 19% | 13 |
 | Key Acronyms | — | 5 |
 
 ---

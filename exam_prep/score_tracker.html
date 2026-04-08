@@ -591,9 +591,9 @@
                 const d = DOMAIN_MAP[s.tool];
                 if (d) domainScores[d].push(s.percentage);
 
-                if (s.tool === 'Full Exam') {
-                    [1, 2, 3, 4].forEach(d => domainScores[d].push(s.percentage));
-                }
+                // Note: Full Exam scores are tracked separately and not
+                // distributed into individual domain averages, since the
+                // overall score doesn't reflect per-domain performance.
             });
 
             const averages = {};
