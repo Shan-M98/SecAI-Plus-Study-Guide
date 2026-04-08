@@ -1,6 +1,6 @@
 # CompTIA SecAI+ CY0-001 Study Guide
 
-Complete interactive study course for the CompTIA SecurityAI+ (CY0-001) certification. All materials run offline in any browser — no server required.
+Complete interactive study course for the CompTIA SecurityAI+ (CY0-001) certification. All materials run offline in any browser -- no server required.
 
 ## Quick Start
 
@@ -12,24 +12,24 @@ cd SecAI-Plus-Study-Guide
 
 ## External Resources
 
-- [Quizlet Flashcards](https://quizlet.com/1163244419/comptia-ai-flash-cards/) — 110 flashcards for quick review
+- [Quizlet Flashcards](https://quizlet.com/1163244419/comptia-ai-flash-cards/) -- 110 flashcards for quick review
 
 ## Exam Domains
 
 | Domain | Weight | Terms |
 |--------|--------|-------|
-| 1 - Basic AI Concepts | 17% | 36 |
-| 1.3 - AI Lifecycle Security | (included in D1) | 4 |
+| 1 - Basic AI Concepts (incl. 1.3 Lifecycle Security) | 17% | 40 |
 | 2 - Securing AI Systems | 40% | 40 |
 | 3 - AI-assisted Security | 24% | 12 |
 | 4 - AI Governance, Risk & Compliance | 19% | 13 |
-| Key Acronyms | — | 5 |
+| Key Acronyms | -- | 5 |
+| **Total** | **100%** | **110** |
 
 ---
 
 ## Module 1: Study Materials
 
-Reference pages that explain how concepts relate — not just definitions.
+Reference pages that explain how concepts relate -- not just definitions.
 
 | Resource | Description |
 |----------|-------------|
@@ -39,7 +39,7 @@ Reference pages that explain how concepts relate — not just definitions.
 | [Domain 4 Cheat Sheet](cheatsheets/domain4.html) | Governance, Responsible AI principles, regulations & frameworks |
 | [Framework Comparison Matrix](references/framework_matrix.html) | Side-by-side: OWASP, MITRE ATLAS, EU AI Act, NIST AI RMF, OECD, ISO |
 | [Attack Taxonomy](references/attack_taxonomy.html) | All AI attacks mapped by phase (training, inference, extraction, design) with defenses |
-| [Glossary](references/glossary.html) | Searchable 110-term glossary with cross-reference links between related concepts |
+| [Glossary](references/glossary.html) | Searchable 109-term glossary with cross-reference links between related concepts |
 
 ## Module 2: Practice & Testing
 
@@ -48,6 +48,7 @@ Interactive tools to test your knowledge across multiple formats.
 | Tool | Description |
 |------|-------------|
 | [Full Practice Exam](practice_exam.html) | 110 questions, 4 types (scenario/identify/define/eliminate), 2h45m timer |
+| [Practice Exam 2 -- CompTIA Style](practice_exam_2.html) | 90 scenario-based questions matching real exam format, 2h45m timer |
 | [Domain Mini Exams](practice/mini_exams.html) | 25-question focused exams per domain, 30-minute timer |
 | [Compare & Contrast Drills](practice/compare_contrast.html) | 24 confusion pairs (e.g., Data Poisoning vs Model Poisoning), scenario-based |
 | [Acronym Speed Drill](practice/acronym_drill.html) | 60-second timed rounds, 29 acronyms, fuzzy matching for typos |
@@ -76,10 +77,10 @@ Strategy and tracking tools for the final push before exam day.
 
 ## Suggested Study Plan
 
-1. **Week 1** — Read all 4 domain cheat sheets. Run through Quizlet flashcards daily.
-2. **Week 2** — Take the full practice exam. Use the score tracker to identify weak domains. Drill weak areas with mini exams.
-3. **Week 3** — Compare & contrast drills for confused terms. Fill-in-the-blank for deeper recall. Acronym speed drills.
-4. **Week 4** — Review visual aids (concept map, lifecycle, OWASP poster). Re-take full exam. Read strategy guide the night before.
+1. **Week 1** -- Read all 4 domain cheat sheets. Run through Quizlet flashcards daily.
+2. **Week 2** -- Take the full practice exam. Use the score tracker to identify weak domains. Drill weak areas with mini exams.
+3. **Week 3** -- Compare & contrast drills for confused terms. Fill-in-the-blank for deeper recall. Acronym speed drills.
+4. **Week 4** -- Review visual aids (concept map, lifecycle, OWASP poster). Re-take full exam. Read strategy guide the night before.
 
 ## License
 
