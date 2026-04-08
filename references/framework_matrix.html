@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecAI+ Framework Comparison Matrix</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #38bdf8;
+            font-size: 2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* ---- Scrollable table wrapper ---- */
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #1e293b;
+            margin-bottom: 3rem;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1050px;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        thead th {
+            background: #1e293b;
+            color: #38bdf8;
+            padding: 12px 14px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            white-space: nowrap;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        thead th:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            background: #1e293b;
+        }
+
+        tbody td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #1e293b;
+            vertical-align: top;
+        }
+
+        tbody td:first-child {
+            font-weight: 600;
+            color: #38bdf8;
+            white-space: nowrap;
+            position: sticky;
+            left: 0;
+            background: inherit;
+            z-index: 1;
+        }
+
+        tbody tr:nth-child(odd) { background: #0f172a; }
+        tbody tr:nth-child(even) { background: #162032; }
+        tbody tr:hover { background: #1e2d45; }
+
+        /* ---- When to Use section ---- */
+        h2 {
+            color: #38bdf8;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 0.5rem;
+        }
+
+        .scenarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .scenario-card {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            border-left: 4px solid #38bdf8;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .scenario-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+
+        .scenario-card .scenario-q {
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 0.35rem;
+        }
+
+        .scenario-card .scenario-a {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .scenario-card .scenario-a strong {
+            color: #38bdf8;
+        }
+
+        /* Color-code certain cards */
+        .scenario-card.red    { border-left-color: #ef4444; }
+        .scenario-card.orange { border-left-color: #f59e0b; }
+        .scenario-card.purple { border-left-color: #a855f7; }
+        .scenario-card.green  { border-left-color: #22c55e; }
+        .scenario-card.blue   { border-left-color: #3b82f6; }
+
+        /* Exam tip box */
+        .exam-tip {
+            background: #1a1a2e;
+            border: 1px solid #38bdf8;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 2rem;
+        }
+        .exam-tip h3 {
+            color: #38bdf8;
+            margin-bottom: 0.5rem;
+        }
+        .exam-tip ul {
+            list-style: none;
+            padding: 0;
+        }
+        .exam-tip li {
+            padding: 0.3rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            color: #cbd5e1;
+        }
+        .exam-tip li::before {
+            content: "\25B8";
+            position: absolute;
+            left: 0;
+            color: #38bdf8;
+        }
+
+        footer {
+            text-align: center;
+            color: #475569;
+            font-size: 0.8rem;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid #1e293b;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>SecAI+ Framework Comparison Matrix</h1>
+    <p class="subtitle">CompTIA CY0-001 &mdash; All Frameworks &amp; Standards Side-by-Side</p>
+
+    <!-- ============ MAIN TABLE ============ -->
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>OWASP LLM Top&nbsp;10</th>
+                    <th>OWASP ML Security Top&nbsp;10</th>
+                    <th>MITRE ATLAS</th>
+                    <th>MIT AI Risk Repository</th>
+                    <th>EU AI Act</th>
+                    <th>NIST AI RMF</th>
+                    <th>OECD AI Standards</th>
+                    <th>ISO AI Standards</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Maintained By</td>
+                    <td>OWASP</td>
+                    <td>OWASP</td>
+                    <td>MITRE</td>
+                    <td>MIT</td>
+                    <td>European Union</td>
+                    <td>NIST</td>
+                    <td>OECD</td>
+                    <td>ISO / IEC</td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>Risk list</td>
+                    <td>Risk list</td>
+                    <td>Threat framework</td>
+                    <td>Risk catalog</td>
+                    <td>Regulation / Law</td>
+                    <td>Framework</td>
+                    <td>Principles</td>
+                    <td>Standards</td>
+                </tr>
+                <tr>
+                    <td>Focus</td>
+                    <td>LLM-specific security risks</td>
+                    <td>ML-specific security risks</td>
+                    <td>Adversarial tactics &amp; techniques for AI</td>
+                    <td>Technical, ethical, societal AI risks</td>
+                    <td>Risk-level classification &amp; compliance</td>
+                    <td>AI risk management lifecycle</td>
+                    <td>International AI principles</td>
+                    <td>AI management systems</td>
+                </tr>
+                <tr>
+                    <td>Key Features</td>
+                    <td>Top 10 LLM vulns (prompt injection, data leakage, etc.)</td>
+                    <td>Top 10 ML vulns (data poisoning, model theft, etc.)</td>
+                    <td>ATT&amp;CK-style matrix for AI attacks</td>
+                    <td>Comprehensive risk catalog across all AI risk domains</td>
+                    <td>4 risk tiers: Unacceptable, High, Limited, Minimal</td>
+                    <td>4 functions: Govern, Map, Measure, Manage</td>
+                    <td>Transparency, accountability, security, human oversight</td>
+                    <td>ISO/IEC 42001, 23894 &mdash; certification available</td>
+                </tr>
+                <tr>
+                    <td>Scope</td>
+                    <td>LLMs only</td>
+                    <td>ML systems</td>
+                    <td>AI / ML adversarial threats</td>
+                    <td>All AI risks</td>
+                    <td>AI systems in EU market</td>
+                    <td>All AI systems</td>
+                    <td>International (40+ countries)</td>
+                    <td>International</td>
+                </tr>
+                <tr>
+                    <td>Use Case</td>
+                    <td>Securing LLM deployments</td>
+                    <td>Securing ML pipelines</td>
+                    <td>Red teaming / threat modeling AI</td>
+                    <td>Risk assessment</td>
+                    <td>Legal compliance in EU</td>
+                    <td>Enterprise risk management</td>
+                    <td>Policy alignment</td>
+                    <td>Certification &amp; auditing</td>
+                </tr>
+                <tr>
+                    <td>Binding?</td>
+                    <td>No &mdash; voluntary</td>
+                    <td>No &mdash; voluntary</td>
+                    <td>No &mdash; voluntary</td>
+                    <td>No &mdash; voluntary</td>
+                    <td><strong>Yes &mdash; legally binding in EU</strong></td>
+                    <td>No &mdash; voluntary</td>
+                    <td>No &mdash; voluntary</td>
+                    <td>Voluntary, but supports compliance</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>Numbered list (LLM01&ndash;LLM10)</td>
+                    <td>Numbered list (ML01&ndash;ML10)</td>
+                    <td>Tactics / Techniques matrix</td>
+                    <td>Taxonomy / database</td>
+                    <td>Legal articles &amp; annexes</td>
+                    <td>Playbook (Govern, Map, Measure, Manage)</td>
+                    <td>Principles &amp; recommendations</td>
+                    <td>Formal specification documents</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============ WHEN TO USE WHICH ============ -->
+    <h2>When to Use Which Framework</h2>
+
+    <div class="scenarios">
+        <div class="scenario-card red">
+            <div class="scenario-q">Building an LLM chatbot?</div>
+            <div class="scenario-a">Start with <strong>OWASP LLM Top 10</strong> to address prompt injection, data leakage, and other LLM-specific risks.</div>
+        </div>
+        <div class="scenario-card orange">
+            <div class="scenario-q">Securing an ML pipeline?</div>
+            <div class="scenario-a">Use <strong>OWASP ML Security Top 10</strong> for data poisoning, model theft, and ML-specific vulnerabilities.</div>
+        </div>
+        <div class="scenario-card purple">
+            <div class="scenario-q">Red teaming your AI system?</div>
+            <div class="scenario-a">Use <strong>MITRE ATLAS</strong> &mdash; the ATT&amp;CK-style matrix maps adversarial tactics and techniques specifically for AI.</div>
+        </div>
+        <div class="scenario-card green">
+            <div class="scenario-q">Conducting a broad AI risk assessment?</div>
+            <div class="scenario-a">Reference the <strong>MIT AI Risk Repository</strong> for a comprehensive catalog of technical, ethical, and societal risks.</div>
+        </div>
+        <div class="scenario-card red">
+            <div class="scenario-q">Deploying AI in the European Union?</div>
+            <div class="scenario-a"><strong>EU AI Act</strong> compliance is mandatory. Classify your system's risk tier and meet the corresponding requirements.</div>
+        </div>
+        <div class="scenario-card blue">
+            <div class="scenario-q">Need enterprise risk management for AI?</div>
+            <div class="scenario-a">Follow the <strong>NIST AI RMF</strong> and its four functions: Govern, Map, Measure, Manage.</div>
+        </div>
+        <div class="scenario-card orange">
+            <div class="scenario-q">Aligning with international AI policy?</div>
+            <div class="scenario-a">Adopt <strong>OECD AI Standards</strong> &mdash; endorsed by 40+ countries for transparency, accountability, and human oversight.</div>
+        </div>
+        <div class="scenario-card purple">
+            <div class="scenario-q">Seeking formal AI certification?</div>
+            <div class="scenario-a">Use <strong>ISO AI Standards</strong> (42001, 23894) &mdash; the only option that provides formal certification pathways.</div>
+        </div>
+    </div>
+
+    <!-- ============ EXAM TIP ============ -->
+    <div class="exam-tip">
+        <h3>Exam Quick-Reference Tips</h3>
+        <ul>
+            <li><strong>OWASP = vulnerability lists</strong> (LLM Top 10 for LLMs, ML Top 10 for ML systems)</li>
+            <li><strong>MITRE ATLAS = adversarial threat matrix</strong> (think ATT&amp;CK but for AI)</li>
+            <li><strong>MIT = risk catalog</strong> (broadest scope, academic research)</li>
+            <li><strong>EU AI Act = the only legally binding one</strong> &mdash; 4 tiers: unacceptable, high, limited, minimal</li>
+            <li><strong>NIST AI RMF = 4 functions</strong> &mdash; Govern, Map, Measure, Manage</li>
+            <li><strong>OECD = international principles</strong> (voluntary, 40+ countries)</li>
+            <li><strong>ISO = certification</strong> (42001 for AI management, 23894 for AI risk management)</li>
+            <li>If a question asks about <em>legal requirements</em>, the answer is <strong>EU AI Act</strong></li>
+            <li>If a question asks about <em>red teaming</em> or <em>threat modeling</em>, the answer is <strong>MITRE ATLAS</strong></li>
+            <li>If a question asks about <em>risk management lifecycle</em>, the answer is <strong>NIST AI RMF</strong></li>
+        </ul>
+    </div>
+
+    <footer>SecAI+ CY0-001 Study Guide &mdash; Framework Comparison Matrix</footer>
+
+</div>
+</body>
+</html>

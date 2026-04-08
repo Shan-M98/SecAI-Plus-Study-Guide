@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecAI+ Domain 4 Cheat Sheet &mdash; AI Governance, Risk, and Compliance (19%)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 {
+    font-size: 1.75rem;
+    color: #38bdf8;
+    border-bottom: 2px solid #38bdf8;
+    padding-bottom: .5rem;
+    margin-bottom: .25rem;
+  }
+  .subtitle { color: #94a3b8; font-size: .95rem; margin-bottom: 2rem; }
+  h2 {
+    font-size: 1.25rem;
+    color: #f1f5f9;
+    background: #1e293b;
+    padding: .6rem 1rem;
+    border-left: 4px solid #38bdf8;
+    margin: 2rem 0 1rem;
+    border-radius: 0 6px 6px 0;
+  }
+  .card {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: .75rem 0;
+    font-size: .9rem;
+  }
+  th {
+    background: #334155;
+    color: #38bdf8;
+    text-align: left;
+    padding: .55rem .75rem;
+    font-weight: 600;
+  }
+  td {
+    padding: .55rem .75rem;
+    border-bottom: 1px solid #334155;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  .callout {
+    background: #1e293b;
+    border-left: 4px solid #facc15;
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+  }
+  .callout-title {
+    color: #facc15;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: .4rem;
+  }
+  .callout p, .callout li { font-size: .9rem; }
+  ul { padding-left: 1.25rem; margin: .5rem 0; }
+  li { margin-bottom: .35rem; font-size: .9rem; }
+  .tag {
+    display: inline-block;
+    background: #38bdf8;
+    color: #0f172a;
+    font-size: .7rem;
+    font-weight: 700;
+    padding: .15rem .5rem;
+    border-radius: 4px;
+    margin-right: .35rem;
+    vertical-align: middle;
+  }
+  .tag-red { background: #f87171; }
+  .tag-green { background: #4ade80; }
+  .tag-yellow { background: #facc15; }
+  .tag-purple { background: #a78bfa; }
+  strong { color: #f1f5f9; }
+  code {
+    background: #334155;
+    padding: .15rem .4rem;
+    border-radius: 4px;
+    font-size: .85rem;
+    color: #38bdf8;
+  }
+  .flow-row {
+    display: flex;
+    gap: .75rem;
+    flex-wrap: wrap;
+    margin: .75rem 0;
+  }
+  .flow-box {
+    flex: 1 1 180px;
+    background: #334155;
+    border-radius: 6px;
+    padding: .75rem 1rem;
+    text-align: center;
+  }
+  .flow-box .label { color: #38bdf8; font-weight: 700; font-size: .85rem; margin-bottom: .25rem; }
+  .flow-box p { font-size: .8rem; color: #cbd5e1; }
+  .acronym-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .75rem;
+    margin: .75rem 0;
+  }
+  .acronym-card {
+    background: #334155;
+    border-radius: 6px;
+    padding: .75rem 1rem;
+  }
+  .acronym-card .abbr { color: #38bdf8; font-weight: 700; font-size: 1rem; }
+  .acronym-card .full { color: #f1f5f9; font-size: .85rem; margin: .15rem 0; }
+  .acronym-card .desc { color: #94a3b8; font-size: .8rem; }
+  @media (max-width: 600px) { .acronym-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Domain 4: AI Governance, Risk, and Compliance</h1>
+<p class="subtitle">CompTIA SecAI+ CY0-001 &mdash; 19% of exam &mdash; Study Cheat Sheet</p>
+
+<!-- ============================================================ -->
+<h2>1. Organizational Controls: Governing AI Use</h2>
+<!-- ============================================================ -->
+<div class="card">
+<table>
+  <tr>
+    <th style="width:25%">Concept</th>
+    <th style="width:40%">What It Is</th>
+    <th>Why It Matters</th>
+  </tr>
+  <tr>
+    <td><strong>AI Center of Excellence</strong></td>
+    <td>A centralized cross-functional team that sets AI strategy, standards, policies, and best practices for the entire organization</td>
+    <td>Provides unified governance, prevents fragmentation, ensures consistent risk management across all AI initiatives</td>
+  </tr>
+  <tr>
+    <td><strong>Shadow AI</strong></td>
+    <td>Unsanctioned use of AI tools by employees without IT/security approval (e.g., pasting sensitive data into public ChatGPT)</td>
+    <td>Data leakage, compliance violations, unvetted model outputs influencing decisions, no audit trail</td>
+  </tr>
+  <tr>
+    <td><strong>Sanctioned AI</strong></td>
+    <td>AI tools approved, vetted, and monitored by the organization with defined acceptable use policies</td>
+    <td>Controlled risk, data protection, audit logging, vendor assessment completed</td>
+  </tr>
+  <tr>
+    <td><strong>Unsanctioned AI</strong></td>
+    <td>AI tools used without organizational approval &mdash; may or may not be malicious, but always ungoverned</td>
+    <td>No security review, no data controls, no compliance alignment &mdash; the "Shadow AI" problem</td>
+  </tr>
+</table>
+</div>
+
+<div class="callout">
+  <div class="callout-title">Key Distinction: Shadow AI vs Unsanctioned AI</div>
+  <p><strong>Shadow AI</strong> specifically refers to employees using AI tools <em>without knowledge of IT/security</em> (hidden use). <strong>Unsanctioned AI</strong> is the broader category: any AI not formally approved, whether hidden or simply not yet reviewed. All Shadow AI is unsanctioned, but not all unsanctioned AI is shadow (it might be known but not yet approved).</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>2. Responsible AI Principles</h2>
+<!-- ============================================================ -->
+<div class="card">
+<table>
+  <tr>
+    <th style="width:20%">Principle</th>
+    <th style="width:35%">Definition</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><span class="tag">Fairness</span></td>
+    <td>AI systems produce equitable outcomes and do not discriminate against protected groups</td>
+    <td>Auditing a hiring model to ensure it does not penalize applicants by gender or ethnicity</td>
+  </tr>
+  <tr>
+    <td><span class="tag-yellow tag">Transparency</span></td>
+    <td>Stakeholders can <strong>see</strong> how the AI system operates &mdash; its data sources, training process, and decision pipeline are visible</td>
+    <td>Publishing a model card that documents training data, architecture, and known limitations</td>
+  </tr>
+  <tr>
+    <td><span class="tag-purple tag">Explainability</span></td>
+    <td>A <strong>specific decision</strong> made by the AI can be understood and described in human terms</td>
+    <td>"Your loan was denied because your debt-to-income ratio exceeded the threshold" &mdash; a clear reason for <em>that</em> decision</td>
+  </tr>
+  <tr>
+    <td><span class="tag-red tag">Accountability</span></td>
+    <td>Clear ownership of AI outcomes &mdash; someone is responsible when the AI causes harm</td>
+    <td>Designating a responsible AI officer who must sign off before a model goes to production</td>
+  </tr>
+</table>
+</div>
+
+<div class="callout">
+  <div class="callout-title">Key Distinction: Transparency vs Explainability (Exam Favorite!)</div>
+  <ul>
+    <li><strong>Transparency</strong> = Can you <strong>SEE</strong> the process? &rarr; "Here is our training data, architecture, and pipeline." (System-level visibility)</li>
+    <li><strong>Explainability</strong> = Can you <strong>UNDERSTAND</strong> a specific decision? &rarr; "Here is why the model made <em>this particular</em> prediction." (Decision-level reasoning)</li>
+  </ul>
+  <p style="margin-top:.5rem;">A model can be transparent (open-source, documented) but not explainable (deep neural net with no interpretable decision path). Conversely, a model can explain individual decisions (LIME/SHAP) while the overall system remains opaque.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>3. Regulations & Frameworks</h2>
+<!-- ============================================================ -->
+<div class="card">
+<table>
+  <tr>
+    <th style="width:18%">Framework</th>
+    <th style="width:15%">Maintainer</th>
+    <th style="width:15%">Scope</th>
+    <th>Key Features</th>
+  </tr>
+  <tr>
+    <td><strong>EU AI Act</strong></td>
+    <td>European Union</td>
+    <td>Regulation (law)</td>
+    <td>
+      Risk-tiered classification:<br>
+      <span class="tag-red tag">Unacceptable</span> Banned (social scoring, real-time biometric mass surveillance)<br>
+      <span class="tag-yellow tag">High-Risk</span> Strict requirements (critical infrastructure, law enforcement, hiring)<br>
+      <span class="tag-green tag">Limited</span> Transparency obligations (chatbots must disclose AI use)<br>
+      <span class="tag tag">Minimal</span> No restrictions (spam filters, video games)
+    </td>
+  </tr>
+  <tr>
+    <td><strong>NIST AI RMF</strong></td>
+    <td>NIST (US)</td>
+    <td>Voluntary framework</td>
+    <td>
+      4 core functions:<br>
+      <strong>Govern</strong> &rarr; culture, policies, roles for AI risk<br>
+      <strong>Map</strong> &rarr; identify AI risks in context<br>
+      <strong>Measure</strong> &rarr; assess and quantify risks<br>
+      <strong>Manage</strong> &rarr; prioritize and treat risks
+    </td>
+  </tr>
+  <tr>
+    <td><strong>OECD AI Principles</strong></td>
+    <td>OECD (38 nations)</td>
+    <td>Intergovernmental principles</td>
+    <td>Promotes trustworthy AI: inclusive growth, human-centered values, transparency, robustness, accountability. Basis for many national AI policies.</td>
+  </tr>
+  <tr>
+    <td><strong>ISO AI Standards</strong></td>
+    <td>ISO/IEC JTC 1/SC 42</td>
+    <td>International standards</td>
+    <td>
+      <strong>ISO/IEC 22989</strong> &mdash; AI concepts and terminology<br>
+      <strong>ISO/IEC 23894</strong> &mdash; AI risk management guidance<br>
+      <strong>ISO/IEC 42001</strong> &mdash; AI management system (certifiable)
+    </td>
+  </tr>
+</table>
+</div>
+
+<div class="callout">
+  <div class="callout-title">Key Distinction: EU AI Act vs NIST AI RMF</div>
+  <p><strong>EU AI Act</strong> = legally binding regulation with enforcement and fines (like GDPR for AI). <strong>NIST AI RMF</strong> = voluntary, guidance-based framework (no penalties, but widely adopted as best practice). The EU Act classifies AI by <em>risk tier</em>; NIST RMF provides a <em>process</em> for managing AI risk regardless of tier.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>4. Data Governance</h2>
+<!-- ============================================================ -->
+<div class="card">
+<table>
+  <tr>
+    <th style="width:25%">Concept</th>
+    <th>What It Means for AI</th>
+  </tr>
+  <tr>
+    <td><strong>Data Sovereignty</strong></td>
+    <td>Data is subject to the laws and governance of the country/region where it is collected or stored. AI models trained on or processing data must comply with local regulations (e.g., EU data stays in EU for GDPR, cannot be sent to a US-hosted AI model without legal basis).</td>
+  </tr>
+  <tr>
+    <td><strong>Data Classification Labels</strong></td>
+    <td>Tags applied to data indicating sensitivity level (Public, Internal, Confidential, Restricted). Determines which data can be used for AI training, which models can access it, and what controls are required. Prevents feeding classified data into public AI tools.</td>
+  </tr>
+</table>
+</div>
+
+<div class="flow-row">
+  <div class="flow-box">
+    <div class="label">Public</div>
+    <p>Safe for public AI models</p>
+  </div>
+  <div class="flow-box">
+    <div class="label">Internal</div>
+    <p>Sanctioned AI only</p>
+  </div>
+  <div class="flow-box">
+    <div class="label">Confidential</div>
+    <p>Private AI with controls</p>
+  </div>
+  <div class="flow-box">
+    <div class="label">Restricted</div>
+    <p>No AI processing without approval</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<h2>5. Deployment Models: Private vs Public AI</h2>
+<!-- ============================================================ -->
+<div class="card">
+<table>
+  <tr>
+    <th style="width:22%">Factor</th>
+    <th style="width:39%"><span class="tag-green tag">Private AI Model</span></th>
+    <th><span class="tag-red tag">Public AI Model</span></th>
+  </tr>
+  <tr>
+    <td><strong>Data Exposure</strong></td>
+    <td>Data stays within org infrastructure &mdash; no third-party access</td>
+    <td>Data sent to external vendor &mdash; potential leakage, training on your data</td>
+  </tr>
+  <tr>
+    <td><strong>Customization</strong></td>
+    <td>Fine-tuned on proprietary data, tailored to org needs</td>
+    <td>General-purpose, limited customization, may not fit domain</td>
+  </tr>
+  <tr>
+    <td><strong>Compliance</strong></td>
+    <td>Full control over data residency, retention, and processing</td>
+    <td>Must rely on vendor compliance certifications, DPAs</td>
+  </tr>
+  <tr>
+    <td><strong>Cost</strong></td>
+    <td>High upfront (infrastructure, talent, training compute)</td>
+    <td>Low upfront (pay-per-use), but ongoing API costs scale</td>
+  </tr>
+  <tr>
+    <td><strong>Maintenance</strong></td>
+    <td>Org responsible for updates, patching, model drift monitoring</td>
+    <td>Vendor handles updates, but you lose control over changes</td>
+  </tr>
+  <tr>
+    <td><strong>Shadow AI Risk</strong></td>
+    <td>Lower &mdash; internal deployment is governed</td>
+    <td>Higher &mdash; easy for employees to use unauthorized public tools</td>
+  </tr>
+</table>
+</div>
+
+<div class="callout">
+  <div class="callout-title">Key Distinction: Private vs Public AI Risk Profile</div>
+  <p><strong>Private AI</strong> = more control, more responsibility. You own the risk of model quality, bias, and infrastructure security. <strong>Public AI</strong> = less control, shared responsibility. You trade data sovereignty for convenience. The exam focuses on <em>when each is appropriate</em> based on data sensitivity and compliance requirements.</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>6. Key Acronyms</h2>
+<!-- ============================================================ -->
+<div class="acronym-grid">
+  <div class="acronym-card">
+    <div class="abbr">ATLAS</div>
+    <div class="full">Adversarial Threat Landscape for AI Systems</div>
+    <div class="desc">MITRE's knowledge base of adversarial tactics and techniques targeting ML systems (like ATT&CK but for AI)</div>
+  </div>
+  <div class="acronym-card">
+    <div class="abbr">RAG</div>
+    <div class="full">Retrieval-Augmented Generation</div>
+    <div class="desc">Technique that grounds LLM responses in retrieved external data to reduce hallucinations and improve accuracy</div>
+  </div>
+  <div class="acronym-card">
+    <div class="abbr">GAN</div>
+    <div class="full">Generative Adversarial Network</div>
+    <div class="desc">Two neural networks (generator + discriminator) competing to create realistic synthetic data; powers deepfakes</div>
+  </div>
+  <div class="acronym-card">
+    <div class="abbr">MLOps</div>
+    <div class="full">Machine Learning Operations</div>
+    <div class="desc">Practices for deploying, monitoring, and maintaining ML models in production (DevOps for ML)</div>
+  </div>
+  <div class="acronym-card">
+    <div class="abbr">AI RMF</div>
+    <div class="full">AI Risk Management Framework</div>
+    <div class="desc">NIST's voluntary framework with 4 functions (Govern, Map, Measure, Manage) for managing AI risks</div>
+  </div>
+  <div class="acronym-card">
+    <div class="abbr">MCP</div>
+    <div class="full">Model Context Protocol</div>
+    <div class="desc">Open protocol standardizing how AI models connect to external tools and data sources</div>
+  </div>
+</div>
+
+<p style="text-align:center;color:#475569;font-size:.8rem;margin-top:2.5rem;">SecAI+ CY0-001 &mdash; Domain 4 Cheat Sheet &mdash; For study use only</p>
+</div>
+</body>
+</html>

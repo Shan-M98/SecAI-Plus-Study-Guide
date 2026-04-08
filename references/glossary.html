@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecAI+ Complete Glossary</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 {
+    text-align: center;
+    color: #38bdf8;
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+  }
+  .subtitle {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+  .search-box {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: #e2e8f0;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: #38bdf8; }
+  .search-box::placeholder { color: #64748b; }
+  .domain-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .domain-btn {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    border: 1px solid #334155;
+    border-radius: 999px;
+    background: #1e293b;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .domain-btn:hover { border-color: #38bdf8; color: #38bdf8; }
+  .domain-btn.active { background: #38bdf8; color: #0f172a; border-color: #38bdf8; font-weight: 600; }
+  .letter-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
+  .letter-nav a {
+    display: inline-block;
+    width: 28px; height: 28px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #38bdf8;
+    text-decoration: none;
+    border-radius: 4px;
+    background: #1e293b;
+    transition: background 0.2s;
+  }
+  .letter-nav a:hover { background: #334155; }
+  .letter-nav a.disabled { color: #334155; pointer-events: none; }
+  .letter-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #38bdf8;
+    border-bottom: 2px solid #1e293b;
+    padding-bottom: 0.25rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+  .term-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .term-card.highlight {
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+  }
+  .term-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #38bdf8;
+    margin-right: 0.5rem;
+  }
+  .domain-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .badge-d1 { background: #7c3aed22; color: #a78bfa; border: 1px solid #7c3aed44; }
+  .badge-d1l { background: #8b5cf622; color: #c4b5fd; border: 1px solid #8b5cf644; }
+  .badge-d2 { background: #f59e0b22; color: #fbbf24; border: 1px solid #f59e0b44; }
+  .badge-d3 { background: #10b98122; color: #34d399; border: 1px solid #10b98144; }
+  .badge-d4 { background: #ef444422; color: #f87171; border: 1px solid #ef444444; }
+  .badge-acr { background: #06b6d422; color: #22d3ee; border: 1px solid #06b6d444; }
+  .term-def { margin-top: 0.5rem; color: #cbd5e1; font-size: 0.92rem; }
+  .related {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+  .related span { font-weight: 600; color: #94a3b8; }
+  .related a {
+    color: #38bdf8;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .related a:hover { color: #7dd3fc; text-decoration: underline; }
+  .count-display {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>SecAI+ Complete Glossary</h1>
+  <p class="subtitle">CompTIA CY0-001 -- 110 Terms with Cross-References</p>
+
+  <input type="text" class="search-box" id="searchBox" placeholder="Search terms or definitions..." autocomplete="off">
+
+  <div class="domain-filters" id="domainFilters">
+    <button class="domain-btn active" data-domain="all">All Domains</button>
+    <button class="domain-btn" data-domain="d1">Domain 1: Basic AI Concepts</button>
+    <button class="domain-btn" data-domain="d1l">Domain 1.3: AI Lifecycle</button>
+    <button class="domain-btn" data-domain="d2">Domain 2: Securing AI Systems</button>
+    <button class="domain-btn" data-domain="d3">Domain 3: AI-assisted Security</button>
+    <button class="domain-btn" data-domain="d4">Domain 4: Governance, Risk &amp; Compliance</button>
+    <button class="domain-btn" data-domain="acr">Key Acronyms</button>
+  </div>
+
+  <div class="letter-nav" id="letterNav"></div>
+  <div class="count-display" id="countDisplay">Showing 110 of 110 terms</div>
+  <div id="glossaryContent"></div>
+</div>
+
+<script>
+const TERMS = [
+  // ===== DOMAIN 1: Basic AI Concepts (17%) =====
+  {term:"Generative AI",domain:"d1",domainLabel:"Domain 1",def:"A category of AI systems capable of creating new content -- text, images, audio, video, or code -- by learning patterns from training data. Uses models like transformers, GANs, and diffusion models to produce novel outputs rather than simply classifying or predicting.",related:["GANs","LLMs","Deep Learning","Transformers","NLP"]},
+  {term:"Machine Learning",domain:"d1",domainLabel:"Domain 1",def:"A subset of artificial intelligence where systems learn from data to improve performance on tasks without being explicitly programmed. Encompasses supervised, unsupervised, and reinforcement learning paradigms.",related:["Supervised Learning","Unsupervised Learning","Reinforcement Learning","Deep Learning","Statistical Learning"]},
+  {term:"Statistical Learning",domain:"d1",domainLabel:"Domain 1",def:"The mathematical framework underpinning machine learning, using statistical methods to find patterns, relationships, and structure in data. Includes regression, classification, and dimensionality reduction techniques.",related:["Machine Learning","Supervised Learning","Unsupervised Learning","Data Verification"]},
+  {term:"Transformers",domain:"d1",domainLabel:"Domain 1",def:"A neural network architecture that uses self-attention mechanisms to process sequential data in parallel, enabling models to weigh the importance of different parts of the input. The foundation of modern LLMs like GPT and BERT.",related:["Deep Learning","LLMs","NLP","Generative AI","Embeddings"]},
+  {term:"Deep Learning",domain:"d1",domainLabel:"Domain 1",def:"A subset of machine learning using multi-layered neural networks (deep neural networks) to learn hierarchical representations of data. Excels at complex tasks like image recognition, natural language understanding, and generative content creation.",related:["Machine Learning","Transformers","GANs","Generative AI","NLP"]},
+  {term:"NLP",domain:"d1",domainLabel:"Domain 1",def:"Natural Language Processing -- the branch of AI focused on enabling computers to understand, interpret, and generate human language. Encompasses tasks like sentiment analysis, translation, summarization, and conversational AI.",related:["LLMs","Transformers","Deep Learning","Generative AI","Embeddings"]},
+  {term:"LLMs",domain:"d1",domainLabel:"Domain 1",def:"Large Language Models -- massive neural networks trained on vast text corpora that can generate, summarize, translate, and reason about text. Examples include GPT-4, Claude, and LLaMA. Characterized by billions of parameters and emergent capabilities.",related:["SLMs","Transformers","NLP","Generative AI","Fine-tuning"]},
+  {term:"SLMs",domain:"d1",domainLabel:"Domain 1",def:"Small Language Models -- compact language models optimized for efficiency, capable of running on edge devices or constrained environments. Achieve reasonable performance with fewer parameters through techniques like distillation, pruning, and quantization.",related:["LLMs","Pruning","Quantization","Fine-tuning"]},
+  {term:"GANs",domain:"d1",domainLabel:"Domain 1",def:"Generative Adversarial Networks -- a framework where two neural networks (generator and discriminator) compete: the generator creates synthetic data while the discriminator tries to distinguish real from fake. Used for image generation, data augmentation, and deepfakes.",related:["Generative AI","Deep Learning","Deepfake","GAN","Data Augmentation"]},
+  {term:"Model Validation",domain:"d1",domainLabel:"Domain 1",def:"The process of evaluating an AI model's performance, accuracy, fairness, and robustness using held-out test data and defined metrics. Ensures the model meets requirements before deployment and helps detect overfitting, bias, or degradation.",related:["Supervised Learning","Fine-tuning","Epoch","Human Validation","Response Confidence Level"]},
+  {term:"Supervised Learning",domain:"d1",domainLabel:"Domain 1",def:"A machine learning paradigm where models are trained on labeled data -- input-output pairs -- to learn a mapping function. Used for classification (spam detection) and regression (price prediction) tasks.",related:["Unsupervised Learning","Reinforcement Learning","Machine Learning","Model Validation","Statistical Learning"]},
+  {term:"Unsupervised Learning",domain:"d1",domainLabel:"Domain 1",def:"A machine learning approach where models find hidden patterns or structures in unlabeled data without predefined outputs. Includes clustering (grouping similar items), anomaly detection, and dimensionality reduction.",related:["Supervised Learning","Reinforcement Learning","Machine Learning","AI Anomaly Detection","Statistical Learning"]},
+  {term:"Reinforcement Learning",domain:"d1",domainLabel:"Domain 1",def:"A machine learning paradigm where an agent learns optimal behavior through trial-and-error interactions with an environment, receiving rewards or penalties. Used in robotics, game playing, and recommendation systems.",related:["Supervised Learning","Unsupervised Learning","Machine Learning","AI Agents"]},
+  {term:"Fine-tuning",domain:"d1",domainLabel:"Domain 1",def:"The process of further training a pre-trained AI model on a smaller, domain-specific dataset to adapt it for a particular task or use case. More efficient than training from scratch and allows customization while preserving general knowledge.",related:["LLMs","Transfer Learning Attacks","Epoch","Model Validation","Pruning"]},
+  {term:"Epoch",domain:"d1",domainLabel:"Domain 1",def:"One complete pass through the entire training dataset during model training. Multiple epochs allow the model to refine its parameters, but too many can lead to overfitting where the model memorizes training data rather than learning patterns.",related:["Fine-tuning","Model Validation","Machine Learning","Deep Learning"]},
+  {term:"Pruning",domain:"d1",domainLabel:"Domain 1",def:"A model optimization technique that removes unnecessary or redundant parameters (weights, neurons, or layers) from a neural network to reduce size and computational cost while maintaining acceptable performance.",related:["Quantization","SLMs","Fine-tuning","Deep Learning"]},
+  {term:"Quantization",domain:"d1",domainLabel:"Domain 1",def:"A model compression technique that reduces the precision of numerical values in a model (e.g., from 32-bit to 8-bit floating point), decreasing memory usage and inference time with minimal accuracy loss.",related:["Pruning","SLMs","Fine-tuning","Deep Learning"]},
+  {term:"System Prompts",domain:"d1",domainLabel:"Domain 1",def:"Hidden instructions provided to an AI model that define its behavior, persona, constraints, and operational boundaries. Set by developers before user interaction and act as the model's operating guidelines.",related:["User Prompts","Prompt Templates","Prompt Injection","Jailbreaking","Model Guardrails"]},
+  {term:"User Prompts",domain:"d1",domainLabel:"Domain 1",def:"The inputs, questions, or instructions provided by end users to an AI system during interaction. The primary interface through which users communicate intent, which the model interprets based on its training and system prompt context.",related:["System Prompts","One-shot Prompting","Multi-shot Prompting","Zero-shot Prompting","Prompt Injection"]},
+  {term:"One-shot Prompting",domain:"d1",domainLabel:"Domain 1",def:"A prompting technique where a single example of the desired input-output pattern is provided to the model before the actual query, helping guide the model's response format and reasoning approach.",related:["Zero-shot Prompting","Multi-shot Prompting","User Prompts","System Prompts"]},
+  {term:"Multi-shot Prompting",domain:"d1",domainLabel:"Domain 1",def:"A prompting strategy that provides multiple examples (typically 2-10+) of desired input-output pairs before the actual query, giving the model more context to understand the expected pattern, format, and reasoning.",related:["One-shot Prompting","Zero-shot Prompting","User Prompts","System Prompts"]},
+  {term:"Zero-shot Prompting",domain:"d1",domainLabel:"Domain 1",def:"A prompting approach where the model is asked to perform a task without any examples, relying entirely on its pre-trained knowledge and the instructions in the prompt. Tests the model's generalization ability.",related:["One-shot Prompting","Multi-shot Prompting","User Prompts","System Prompts"]},
+  {term:"Data Cleansing",domain:"d1",domainLabel:"Domain 1",def:"The process of identifying and correcting errors, inconsistencies, duplicates, and inaccuracies in datasets before they are used for AI training. Critical for ensuring model quality and reducing bias or garbage-in-garbage-out problems.",related:["Data Verification","Data Integrity","Data Balancing","Data Augmentation"]},
+  {term:"Data Verification",domain:"d1",domainLabel:"Domain 1",def:"The process of confirming that data is accurate, complete, consistent, and meets defined quality standards. In AI pipelines, ensures training data hasn't been tampered with and maintains its expected properties.",related:["Data Cleansing","Data Integrity","Data Provenance","Data Lineage","Data Poisoning"]},
+  {term:"Data Lineage",domain:"d1",domainLabel:"Domain 1",def:"The tracking of data's origin, movement, and transformation throughout its lifecycle -- from source to AI model training. Provides an audit trail showing where data came from, how it was processed, and who accessed it.",related:["Data Provenance","Data Integrity","Data Verification","Data Sovereignty"]},
+  {term:"Data Integrity",domain:"d1",domainLabel:"Domain 1",def:"The assurance that data remains accurate, consistent, and unaltered throughout its lifecycle unless modified through authorized processes. In AI, compromised data integrity can lead to poisoned models and unreliable outputs.",related:["Data Verification","Data Cleansing","Data Provenance","Data Poisoning","Data Lineage"]},
+  {term:"Data Provenance",domain:"d1",domainLabel:"Domain 1",def:"Documentation of the origin, history, and ownership of data used in AI systems. Establishes trust by recording who created, collected, or curated the data and under what conditions, supporting compliance and accountability.",related:["Data Lineage","Data Integrity","Data Verification","Data Sovereignty","Accountability"]},
+  {term:"Data Augmentation",domain:"d1",domainLabel:"Domain 1",def:"Techniques for artificially expanding training datasets by creating modified versions of existing data (rotation, flipping, noise injection, synonym replacement). Helps improve model robustness and reduce overfitting, especially with limited data.",related:["Data Balancing","Data Cleansing","GANs","Fine-tuning"]},
+  {term:"Data Balancing",domain:"d1",domainLabel:"Domain 1",def:"Techniques to address class imbalance in training data by oversampling minority classes, undersampling majority classes, or generating synthetic examples. Prevents models from being biased toward the majority class.",related:["Data Augmentation","Data Cleansing","Responsible AI - Fairness","Model Validation"]},
+  {term:"Structured Data",domain:"d1",domainLabel:"Domain 1",def:"Data organized in a predefined format with a fixed schema, typically stored in relational databases or spreadsheets with rows and columns. Examples include SQL tables, CSV files, and transaction records. Easily searchable and analyzable.",related:["Semi-structured Data","Unstructured Data","Data Classification Labels"]},
+  {term:"Semi-structured Data",domain:"d1",domainLabel:"Domain 1",def:"Data that has some organizational properties (tags, markers, metadata) but does not conform to a rigid schema. Examples include JSON, XML, emails, and log files. More flexible than structured data but harder to query uniformly.",related:["Structured Data","Unstructured Data","Data Classification Labels"]},
+  {term:"Unstructured Data",domain:"d1",domainLabel:"Domain 1",def:"Data without a predefined format or organization, including text documents, images, audio, video, and social media posts. Constitutes the majority of enterprise data and requires AI/NLP techniques to extract meaningful information.",related:["Structured Data","Semi-structured Data","NLP","Embeddings"]},
+  {term:"Watermarking (AI)",domain:"d1",domainLabel:"Domain 1",def:"Techniques for embedding imperceptible identifying information into AI-generated content (text, images, audio) to enable detection and attribution. Helps combat misinformation, verify provenance, and enforce intellectual property rights.",related:["Deepfake","Generative AI","Data Provenance","Transparency"]},
+  {term:"RAG",domain:"d1",domainLabel:"Domain 1",def:"Retrieval-Augmented Generation -- an architecture that enhances LLM responses by first retrieving relevant information from external knowledge bases or documents, then using that context to generate more accurate, grounded, and up-to-date answers.",related:["Vector Storage","Embeddings","AI Hallucinations","LLMs"]},
+  {term:"Vector Storage",domain:"d1",domainLabel:"Domain 1",def:"Specialized databases (vector databases) designed to store, index, and efficiently search high-dimensional vector representations (embeddings) of data. Essential for RAG systems, semantic search, and similarity matching in AI applications.",related:["RAG","Embeddings","LLMs","Unstructured Data"]},
+  {term:"Embeddings",domain:"d1",domainLabel:"Domain 1",def:"Dense numerical vector representations that capture the semantic meaning of data (text, images, audio) in a continuous vector space. Similar items have closer vectors, enabling semantic search, clustering, and as input features for downstream AI models.",related:["Vector Storage","RAG","NLP","Transformers","Deep Learning"]},
+
+  // ===== DOMAIN 1.3: AI Lifecycle Security =====
+  {term:"AI Lifecycle Security",domain:"d1l",domainLabel:"Domain 1.3",def:"The practice of integrating security controls and considerations throughout every phase of the AI system lifecycle -- from data collection and model training through deployment, monitoring, and retirement. Addresses risks unique to each stage.",related:["Human-in-the-loop","Human Oversight","NIST AI RMF","OWASP ML Security Top 10","MLOps"]},
+  {term:"Human-in-the-loop",domain:"d1l",domainLabel:"Domain 1.3",def:"A design pattern where human judgment is integrated into AI decision-making processes, especially for high-stakes or ambiguous situations. Humans review, approve, or override AI outputs before actions are taken.",related:["Human Oversight","Human Validation","Responsible AI - Fairness","Excessive Agency","Overreliance"]},
+  {term:"Human Oversight",domain:"d1l",domainLabel:"Domain 1.3",def:"The governance principle requiring that AI systems operate under meaningful human supervision, with the ability for humans to intervene, correct, or shut down AI systems. A key requirement of regulations like the EU AI Act.",related:["Human-in-the-loop","Human Validation","EU AI Act","Accountability","AI Center of Excellence"]},
+  {term:"Human Validation",domain:"d1l",domainLabel:"Domain 1.3",def:"The process of having human experts review and verify AI outputs, model behavior, and system decisions to ensure accuracy, safety, and alignment with intended purpose. Critical for maintaining trust and catching errors AI systems miss.",related:["Human-in-the-loop","Human Oversight","Model Validation","Response Confidence Level"]},
+
+  // ===== DOMAIN 2: Securing AI Systems (40%) =====
+  {term:"OWASP LLM Top 10",domain:"d2",domainLabel:"Domain 2",def:"A framework by OWASP identifying the ten most critical security risks for Large Language Model applications, including prompt injection, insecure output handling, data poisoning, model DoS, supply chain vulnerabilities, and excessive agency.",related:["OWASP ML Security Top 10","Prompt Injection","Insecure Output Handling","Data Poisoning","MITRE ATLAS"]},
+  {term:"OWASP ML Security Top 10",domain:"d2",domainLabel:"Domain 2",def:"A companion OWASP project focused on security risks specific to traditional machine learning systems, covering adversarial attacks, data poisoning, model theft, and ML supply chain issues distinct from LLM-specific threats.",related:["OWASP LLM Top 10","MITRE ATLAS","Model Theft","Model Poisoning","AI Supply Chain Attacks"]},
+  {term:"MITRE ATLAS",domain:"d2",domainLabel:"Domain 2",def:"Adversarial Threat Landscape for AI Systems -- a knowledge base of adversary tactics, techniques, and case studies for attacks on machine learning systems. Modeled after MITRE ATT&CK, it maps real-world AI attack patterns to help defenders.",related:["OWASP LLM Top 10","OWASP ML Security Top 10","ATLAS","MIT AI Risk Repository"]},
+  {term:"MIT AI Risk Repository",domain:"d2",domainLabel:"Domain 2",def:"A comprehensive database maintained by MIT cataloging known risks, vulnerabilities, and failure modes of AI systems. Provides a structured taxonomy for understanding and mitigating AI-related threats across technical, ethical, and societal dimensions.",related:["MITRE ATLAS","OWASP LLM Top 10","NIST AI RMF","AI Lifecycle Security"]},
+  {term:"Model Guardrails",domain:"d2",domainLabel:"Domain 2",def:"Safety mechanisms and constraints built into or around AI models to prevent harmful, biased, or policy-violating outputs. Include content filters, topic restrictions, output validators, and behavioral boundaries that limit what the model can say or do.",related:["Prompt Templates","Prompt Firewalls","System Prompts","Insecure Output Handling","Jailbreaking"]},
+  {term:"Prompt Templates",domain:"d2",domainLabel:"Domain 2",def:"Pre-defined, parameterized prompt structures that standardize how user inputs are formatted before being sent to an AI model. Reduce injection risk by constraining input format and ensuring consistent system instructions are applied.",related:["Prompt Firewalls","System Prompts","Model Guardrails","Prompt Injection","Prompt Monitoring"]},
+  {term:"Prompt Firewalls",domain:"d2",domainLabel:"Domain 2",def:"Security layers that analyze, filter, and sanitize prompts before they reach an AI model and inspect outputs before they reach users. Detect and block prompt injection attempts, policy violations, and sensitive data leakage.",related:["Prompt Injection","Prompt Templates","Model Guardrails","Insecure Output Handling","Log Sanitization"]},
+  {term:"Rate Limits",domain:"d2",domainLabel:"Domain 2",def:"Controls that restrict the number of API requests or interactions a user or application can make to an AI system within a defined time period. Prevent abuse, model DoS attacks, and excessive resource consumption.",related:["Token Limits","Input Quotas","Model DoS","Endpoint Access Controls","AI Cost Monitoring"]},
+  {term:"Token Limits",domain:"d2",domainLabel:"Domain 2",def:"Constraints on the maximum number of tokens (words/subwords) allowed in a single prompt or response. Prevent resource exhaustion, control costs, and mitigate attacks that exploit excessively long inputs to manipulate model behavior.",related:["Rate Limits","Input Quotas","Model DoS","AI Cost Monitoring","Modality Limits"]},
+  {term:"Input Quotas",domain:"d2",domainLabel:"Domain 2",def:"Limits on the volume, size, or frequency of inputs a user can submit to an AI system. A broader concept than rate or token limits, encompassing total data volume, file upload sizes, and cumulative usage thresholds.",related:["Rate Limits","Token Limits","Modality Limits","Endpoint Access Controls","Model DoS"]},
+  {term:"Modality Limits",domain:"d2",domainLabel:"Domain 2",def:"Controls that restrict which input types (text, images, audio, files) an AI system accepts and the volume of each modality. Reduces the attack surface by limiting multimodal inputs that could be used for adversarial exploitation.",related:["Input Quotas","Rate Limits","Token Limits","Endpoint Access Controls"]},
+  {term:"Endpoint Access Controls",domain:"d2",domainLabel:"Domain 2",def:"Authentication and authorization mechanisms that govern who and what can interact with AI model APIs and services. Include API keys, OAuth tokens, role-based access, IP allowlists, and network-level restrictions.",related:["Rate Limits","Input Quotas","AI Supply Chain Attacks","Sanctioned vs Unsanctioned AI"]},
+  {term:"Prompt Injection",domain:"d2",domainLabel:"Domain 2",def:"An attack where malicious instructions are embedded in user inputs to override the AI model's system prompt, bypass safety guardrails, or manipulate the model into unintended behavior. Can be direct (user input) or indirect (via retrieved content).",related:["Jailbreaking","Prompt Firewalls","Prompt Templates","System Prompts","Insecure Output Handling"]},
+  {term:"Data Poisoning",domain:"d2",domainLabel:"Domain 2",def:"An attack that corrupts AI training data by injecting malicious, biased, or misleading samples to compromise model behavior. Can cause the model to produce incorrect outputs, contain backdoors, or exhibit biased decision-making.",related:["Model Poisoning","Model Skewing","Data Integrity","Data Verification","Data Cleansing"]},
+  {term:"Model Poisoning",domain:"d2",domainLabel:"Domain 2",def:"An attack that directly manipulates a model's weights, parameters, or architecture (rather than training data) to alter its behavior. Can occur through compromised training pipelines, malicious fine-tuning, or supply chain tampering.",related:["Data Poisoning","Model Skewing","AI Supply Chain Attacks","Transfer Learning Attacks","Model Theft"]},
+  {term:"Jailbreaking",domain:"d2",domainLabel:"Domain 2",def:"Techniques used to bypass an AI model's safety filters, content policies, and behavioral constraints to elicit prohibited outputs. Methods include role-playing scenarios, encoding tricks, and multi-step manipulation of the model's context.",related:["Prompt Injection","Model Guardrails","System Prompts","Prompt Firewalls","Insecure Output Handling"]},
+  {term:"AI Hallucinations",domain:"d2",domainLabel:"Domain 2",def:"Instances where AI models generate outputs that are factually incorrect, fabricated, or nonsensical but presented with apparent confidence. A fundamental challenge in LLMs caused by pattern completion without true understanding.",related:["RAG","Overreliance","Response Confidence Level","Human Validation","Model Validation"]},
+  {term:"Input Manipulation",domain:"d2",domainLabel:"Domain 2",def:"Adversarial techniques that craft specific inputs designed to cause AI models to misclassify, misinterpret, or produce incorrect outputs. Includes adversarial examples (imperceptible perturbations), evasion attacks, and input fuzzing.",related:["Prompt Injection","Data Poisoning","Model Inversion","Jailbreaking","MITRE ATLAS"]},
+  {term:"Model Inversion",domain:"d2",domainLabel:"Domain 2",def:"An attack that exploits a model's outputs or confidence scores to reconstruct or infer sensitive information from its training data, such as recovering private records or generating representative samples of training individuals.",related:["Model Theft","Membership Inference","Data Anonymization","Input Manipulation","Encryption In Use"]},
+  {term:"Model Theft",domain:"d2",domainLabel:"Domain 2",def:"The unauthorized extraction, replication, or stealing of a proprietary AI model through methods like model extraction attacks (querying the API to build a copy), direct access to model files, or insider threats.",related:["Model Inversion","AI Supply Chain Attacks","Membership Inference","Endpoint Access Controls","Encryption At Rest"]},
+  {term:"AI Supply Chain Attacks",domain:"d2",domainLabel:"Domain 2",def:"Attacks targeting the components, dependencies, and infrastructure used to build AI systems -- including compromised pre-trained models, poisoned datasets, malicious libraries, and tampered training pipelines.",related:["Model Poisoning","Transfer Learning Attacks","Model Theft","OWASP ML Security Top 10","AI Lifecycle Security"]},
+  {term:"Transfer Learning Attacks",domain:"d2",domainLabel:"Domain 2",def:"Attacks that exploit the practice of transfer learning (using pre-trained models as a base) by embedding backdoors, biases, or vulnerabilities in publicly shared models that propagate to all downstream fine-tuned versions.",related:["AI Supply Chain Attacks","Model Poisoning","Fine-tuning","Data Poisoning"]},
+  {term:"Model Skewing",domain:"d2",domainLabel:"Domain 2",def:"A type of poisoning attack that subtly shifts a model's decision boundaries or predictions in a desired direction without causing obvious errors. More difficult to detect than overt poisoning because the model still appears to function normally.",related:["Data Poisoning","Model Poisoning","Model Validation","Data Balancing","Responsible AI - Fairness"]},
+  {term:"Membership Inference",domain:"d2",domainLabel:"Domain 2",def:"An attack that determines whether a specific data record was used in a model's training dataset by analyzing the model's output behavior. Poses privacy risks as it can reveal individuals' inclusion in sensitive datasets.",related:["Model Inversion","Model Theft","Data Anonymization","Data Minimization","Encryption In Use"]},
+  {term:"Insecure Output Handling",domain:"d2",domainLabel:"Domain 2",def:"Vulnerabilities arising from using AI-generated outputs without proper validation, sanitization, or encoding. Can lead to XSS, SQL injection, command injection, or other downstream exploits if model outputs are treated as trusted input.",related:["Prompt Injection","Model Guardrails","Prompt Firewalls","OWASP LLM Top 10","Excessive Agency"]},
+  {term:"Model DoS",domain:"d2",domainLabel:"Domain 2",def:"Denial-of-Service attacks targeting AI models by sending computationally expensive queries, extremely long inputs, or high-volume requests designed to exhaust resources (GPU, memory, API budget) and degrade or halt service.",related:["Rate Limits","Token Limits","Input Quotas","AI Cost Monitoring","Endpoint Access Controls"]},
+  {term:"Excessive Agency",domain:"d2",domainLabel:"Domain 2",def:"A risk where AI systems are granted more permissions, autonomy, or capabilities than necessary for their intended function, enabling unintended actions like unauthorized data access, code execution, or external system interactions.",related:["Overreliance","AI Agents","Human-in-the-loop","OWASP LLM Top 10","Insecure Output Handling"]},
+  {term:"Overreliance",domain:"d2",domainLabel:"Domain 2",def:"The dangerous tendency to trust AI outputs without sufficient verification, critical thinking, or human oversight. Can lead to accepting hallucinated facts, flawed recommendations, or biased decisions without adequate scrutiny.",related:["AI Hallucinations","Human-in-the-loop","Human Validation","Excessive Agency","Response Confidence Level"]},
+  {term:"Encryption In Transit",domain:"d2",domainLabel:"Domain 2",def:"Protecting data as it moves between systems, users, and AI services using protocols like TLS/SSL and encrypted API communications. Prevents interception and tampering of prompts, model responses, and training data during transmission.",related:["Encryption At Rest","Encryption In Use","Data Anonymization","Endpoint Access Controls"]},
+  {term:"Encryption At Rest",domain:"d2",domainLabel:"Domain 2",def:"Protecting stored data -- including model weights, training datasets, configuration files, and logs -- using encryption algorithms when data is persisted on disk or in databases. Prevents unauthorized access to AI assets if storage is compromised.",related:["Encryption In Transit","Encryption In Use","Data Classification Labels","Model Theft"]},
+  {term:"Encryption In Use",domain:"d2",domainLabel:"Domain 2",def:"Protecting data while it is actively being processed in memory, using techniques like homomorphic encryption, secure enclaves (TEEs), and confidential computing. Prevents exposure of sensitive data during AI inference or training operations.",related:["Encryption At Rest","Encryption In Transit","Model Inversion","Membership Inference","Data Anonymization"]},
+  {term:"Data Anonymization",domain:"d2",domainLabel:"Domain 2",def:"Techniques that irreversibly remove or alter personally identifiable information (PII) from datasets so individuals cannot be re-identified. Includes generalization, suppression, and noise addition. Critical for privacy-preserving AI training.",related:["Data Masking","Data Redaction","Data Minimization","Data Sovereignty","Membership Inference"]},
+  {term:"Data Classification Labels",domain:"d2",domainLabel:"Domain 2",def:"Metadata tags that categorize data by sensitivity level (public, internal, confidential, restricted) to determine appropriate handling, storage, and access controls. Ensure AI systems process data according to its classification requirements.",related:["Data Redaction","Data Masking","Data Minimization","Structured Data","Data Sovereignty"]},
+  {term:"Data Redaction",domain:"d2",domainLabel:"Domain 2",def:"The process of permanently removing or obscuring sensitive information (PII, credentials, classified content) from data before it enters AI pipelines. Unlike masking, redaction is typically irreversible and used for compliance with privacy regulations.",related:["Data Masking","Data Anonymization","Data Minimization","Log Sanitization","Data Classification Labels"]},
+  {term:"Data Masking",domain:"d2",domainLabel:"Domain 2",def:"A technique that replaces sensitive data with realistic but fake substitute values while preserving the data's format and usability. Unlike anonymization, the original data can potentially be recovered. Used for AI testing and development environments.",related:["Data Anonymization","Data Redaction","Data Minimization","Data Classification Labels"]},
+  {term:"Data Minimization",domain:"d2",domainLabel:"Domain 2",def:"The principle of collecting, processing, and retaining only the minimum amount of data necessary for a specific AI purpose. A core privacy principle in GDPR, reducing the attack surface and limiting potential harm from data breaches.",related:["Data Anonymization","Data Redaction","Data Masking","Data Sovereignty","EU AI Act"]},
+  {term:"Prompt Monitoring",domain:"d2",domainLabel:"Domain 2",def:"The practice of logging, analyzing, and alerting on prompts sent to AI systems to detect abuse, injection attempts, policy violations, and anomalous usage patterns. Essential for security operations and incident response in AI deployments.",related:["Log Sanitization","Prompt Firewalls","Prompt Injection","AI Cost Monitoring","Response Confidence Level"]},
+  {term:"Log Sanitization",domain:"d2",domainLabel:"Domain 2",def:"The process of removing or redacting sensitive information (PII, credentials, proprietary data) from AI system logs before storage or analysis. Balances the need for monitoring and debugging with privacy and compliance requirements.",related:["Prompt Monitoring","Data Redaction","Data Masking","Data Minimization","Data Anonymization"]},
+  {term:"Response Confidence Level",domain:"d2",domainLabel:"Domain 2",def:"A metric or score indicating how confident an AI model is in its generated output. Used to flag low-confidence responses for human review, trigger fallback behaviors, and help users assess output reliability.",related:["AI Hallucinations","Human Validation","Model Validation","Overreliance","Prompt Monitoring"]},
+  {term:"AI Cost Monitoring",domain:"d2",domainLabel:"Domain 2",def:"Tracking and managing the financial costs associated with running AI systems, including API usage, compute resources, token consumption, and cloud infrastructure. Detects cost anomalies that may indicate abuse, DoS attacks, or misuse.",related:["Rate Limits","Token Limits","Model DoS","Prompt Monitoring","MLOps"]},
+
+  // ===== DOMAIN 3: AI-assisted Security (24%) =====
+  {term:"MCP Server",domain:"d3",domainLabel:"Domain 3",def:"Model Context Protocol Server -- a standardized interface that allows AI models to securely access external tools, data sources, and services. Enables structured interactions between LLMs and enterprise systems while maintaining security boundaries.",related:["AI Agents","Endpoint Access Controls","Excessive Agency","CI/CD with AI"]},
+  {term:"AI Signature Matching",domain:"d3",domainLabel:"Domain 3",def:"Using AI/ML models to enhance traditional signature-based detection by identifying variations and mutations of known threats that would evade exact-match signatures. Improves detection of polymorphic malware and obfuscated attacks.",related:["AI Anomaly Detection","AI Pattern Recognition","AI-assisted Penetration Testing"]},
+  {term:"AI Anomaly Detection",domain:"d3",domainLabel:"Domain 3",def:"The application of machine learning (often unsupervised learning) to identify unusual patterns, behaviors, or data points that deviate from established baselines. Used in SIEM, UEBA, network monitoring, and fraud detection.",related:["AI Pattern Recognition","AI Signature Matching","Unsupervised Learning","AI Agents"]},
+  {term:"AI Pattern Recognition",domain:"d3",domainLabel:"Domain 3",def:"The use of AI to identify recurring patterns, trends, and correlations across large volumes of security data that would be difficult for humans to detect. Applied in threat hunting, log analysis, and behavioral profiling.",related:["AI Anomaly Detection","AI Signature Matching","Deep Learning","Machine Learning"]},
+  {term:"AI-assisted Penetration Testing",domain:"d3",domainLabel:"Domain 3",def:"Using AI tools to augment penetration testing by automating reconnaissance, vulnerability discovery, exploit generation, and attack path analysis. AI enhances tester efficiency but requires human judgment for context and ethics.",related:["AI Reconnaissance","AI Obfuscation","AI Agents","AI Social Engineering"]},
+  {term:"Deepfake",domain:"d3",domainLabel:"Domain 3",def:"AI-generated synthetic media -- including video, audio, and images -- that convincingly impersonates real people. Created using deep learning (often GANs or diffusion models). Used for fraud, disinformation, social engineering, and identity theft.",related:["GANs","AI Social Engineering","Watermarking (AI)","Generative AI","Deep Learning"]},
+  {term:"AI Reconnaissance",domain:"d3",domainLabel:"Domain 3",def:"The use of AI to automate and enhance the information-gathering phase of cyberattacks, including OSINT collection, network scanning, vulnerability enumeration, and target profiling at unprecedented speed and scale.",related:["AI-assisted Penetration Testing","AI Social Engineering","AI Obfuscation","AI Pattern Recognition"]},
+  {term:"AI Social Engineering",domain:"d3",domainLabel:"Domain 3",def:"Leveraging AI to create highly personalized and convincing social engineering attacks, including AI-generated phishing emails, voice cloning for vishing, deepfake video calls, and automated spear-phishing at scale.",related:["Deepfake","AI Reconnaissance","AI Obfuscation","Generative AI"]},
+  {term:"AI Obfuscation",domain:"d3",domainLabel:"Domain 3",def:"Using AI to automatically generate, modify, or transform malicious code and payloads to evade security detection systems. Includes AI-powered polymorphic malware, automated payload encoding, and adversarial evasion of ML-based defenses.",related:["AI Reconnaissance","AI Social Engineering","AI-assisted Penetration Testing","AI Signature Matching"]},
+  {term:"Low-code/No-code AI",domain:"d3",domainLabel:"Domain 3",def:"Platforms that enable users to build, deploy, and manage AI applications through visual interfaces and pre-built components with minimal or no programming. Democratizes AI but introduces security risks from untrained users and shadow AI.",related:["Shadow AI","AI Agents","CI/CD with AI","Sanctioned vs Unsanctioned AI"]},
+  {term:"AI Agents",domain:"d3",domainLabel:"Domain 3",def:"Autonomous AI systems that can plan, reason, use tools, and take actions to accomplish goals with minimal human intervention. Can chain multiple AI calls, access external systems, and make decisions, raising concerns about excessive agency and control.",related:["MCP Server","Excessive Agency","Human-in-the-loop","AI-assisted Penetration Testing","Low-code/No-code AI"]},
+  {term:"CI/CD with AI",domain:"d3",domainLabel:"Domain 3",def:"Integrating AI capabilities into Continuous Integration/Continuous Deployment pipelines for automated code review, vulnerability scanning, test generation, and deployment risk assessment. Also covers the CI/CD practices for deploying AI models themselves.",related:["MLOps","AI Agents","AI Supply Chain Attacks","Low-code/No-code AI","MCP Server"]},
+
+  // ===== DOMAIN 4: AI Governance, Risk, and Compliance (19%) =====
+  {term:"AI Center of Excellence",domain:"d4",domainLabel:"Domain 4",def:"A centralized organizational unit that establishes AI strategy, governance policies, best practices, and standards across the enterprise. Coordinates AI initiatives, manages risk, ensures compliance, and builds internal AI capabilities.",related:["Shadow AI","Sanctioned vs Unsanctioned AI","Responsible AI - Fairness","NIST AI RMF","Accountability"]},
+  {term:"Shadow AI",domain:"d4",domainLabel:"Domain 4",def:"The unauthorized or unmanaged use of AI tools and services by employees without IT or security team knowledge or approval. Creates governance blind spots, data leakage risks, compliance violations, and unmonitored AI decision-making.",related:["Sanctioned vs Unsanctioned AI","AI Center of Excellence","Low-code/No-code AI","Data Sovereignty"]},
+  {term:"Responsible AI - Fairness",domain:"d4",domainLabel:"Domain 4",def:"The principle that AI systems should make equitable decisions without discriminating against individuals or groups based on protected characteristics (race, gender, age, etc.). Requires bias testing, diverse training data, and ongoing monitoring.",related:["Transparency","Explainability","Accountability","Data Balancing","Human Oversight"]},
+  {term:"Transparency",domain:"d4",domainLabel:"Domain 4",def:"The principle that AI systems should be open about their capabilities, limitations, data usage, and decision-making processes. Users should know when they are interacting with AI and understand how their data is being used.",related:["Explainability","Accountability","Responsible AI - Fairness","Watermarking (AI)","EU AI Act"]},
+  {term:"Explainability",domain:"d4",domainLabel:"Domain 4",def:"The ability to understand and communicate how an AI model arrives at its decisions or outputs in human-interpretable terms. Critical for building trust, debugging models, meeting regulatory requirements, and ensuring accountability.",related:["Transparency","Accountability","Responsible AI - Fairness","Response Confidence Level","NIST AI RMF"]},
+  {term:"Accountability",domain:"d4",domainLabel:"Domain 4",def:"The principle that organizations and individuals are responsible for the outcomes and impacts of AI systems they develop, deploy, or use. Requires clear ownership, audit trails, governance structures, and mechanisms for redress.",related:["Transparency","Explainability","Responsible AI - Fairness","Human Oversight","EU AI Act"]},
+  {term:"EU AI Act",domain:"d4",domainLabel:"Domain 4",def:"The European Union's comprehensive regulatory framework for AI, establishing a risk-based classification system (unacceptable, high, limited, minimal risk) with corresponding requirements for transparency, human oversight, documentation, and conformity assessment.",related:["NIST AI RMF","OECD AI Standards","ISO AI Standards","Human Oversight","Data Sovereignty"]},
+  {term:"NIST AI RMF",domain:"d4",domainLabel:"Domain 4",def:"The National Institute of Standards and Technology AI Risk Management Framework -- a voluntary US framework providing guidance for managing AI risks across the lifecycle. Organized around four functions: Govern, Map, Measure, and Manage.",related:["EU AI Act","OECD AI Standards","ISO AI Standards","AIRMF","AI Lifecycle Security"]},
+  {term:"OECD AI Standards",domain:"d4",domainLabel:"Domain 4",def:"Principles and recommendations adopted by the Organisation for Economic Co-operation and Development for responsible AI. Emphasize inclusive growth, human-centered values, transparency, robustness, and accountability across member nations.",related:["EU AI Act","NIST AI RMF","ISO AI Standards","Responsible AI - Fairness","Accountability"]},
+  {term:"ISO AI Standards",domain:"d4",domainLabel:"Domain 4",def:"International standards from ISO/IEC (including ISO/IEC 42001 for AI management systems and ISO/IEC 23894 for AI risk management) providing globally recognized frameworks for developing, deploying, and governing AI systems responsibly.",related:["EU AI Act","NIST AI RMF","OECD AI Standards","AI Lifecycle Security","Accountability"]},
+  {term:"Data Sovereignty",domain:"d4",domainLabel:"Domain 4",def:"The principle that data is subject to the laws, regulations, and governance structures of the country or region where it is collected or stored. Critical for AI systems processing data across jurisdictions, affecting model training and deployment decisions.",related:["EU AI Act","Data Minimization","Data Provenance","Data Lineage","Private vs Public AI Models"]},
+  {term:"Sanctioned vs Unsanctioned AI",domain:"d4",domainLabel:"Domain 4",def:"The distinction between AI tools officially approved and managed by an organization (sanctioned) versus those used without authorization (unsanctioned/shadow AI). Governance frameworks must address both to manage risk and ensure compliance.",related:["Shadow AI","AI Center of Excellence","Private vs Public AI Models","Low-code/No-code AI"]},
+  {term:"Private vs Public AI Models",domain:"d4",domainLabel:"Domain 4",def:"The distinction between AI models deployed privately (on-premises or private cloud, with full data control) versus public models (cloud-hosted, shared infrastructure). Each has different risk profiles for data privacy, security, cost, and compliance.",related:["Sanctioned vs Unsanctioned AI","Data Sovereignty","Shadow AI","Encryption At Rest","Endpoint Access Controls"]},
+
+  // ===== KEY ACRONYMS =====
+  {term:"ATLAS",domain:"acr",domainLabel:"Acronym",def:"Adversarial Threat Landscape for Artificial Intelligence Systems -- MITRE's framework for cataloging adversarial tactics and techniques against AI/ML systems. Modeled after ATT&CK, it provides a structured approach to understanding AI-specific threats.",related:["MITRE ATLAS","OWASP LLM Top 10","OWASP ML Security Top 10","MIT AI Risk Repository"]},
+  {term:"GAN",domain:"acr",domainLabel:"Acronym",def:"Generative Adversarial Network -- a class of neural networks where a generator and discriminator compete to produce increasingly realistic synthetic data. The acronym form commonly used in technical literature and exam contexts.",related:["GANs","Generative AI","Deepfake","Deep Learning"]},
+  {term:"MLOps",domain:"acr",domainLabel:"Acronym",def:"Machine Learning Operations -- the set of practices, tools, and workflows for deploying, monitoring, and maintaining ML models in production reliably and efficiently. Combines ML, DevOps, and data engineering to manage the full ML lifecycle.",related:["CI/CD with AI","AI Lifecycle Security","AI Cost Monitoring","Model Validation","AIRMF"]},
+  {term:"AIRMF",domain:"acr",domainLabel:"Acronym",def:"AI Risk Management Framework -- commonly refers to the NIST AI RMF (AI 100-1). Provides a structured, voluntary approach to identifying, assessing, and mitigating risks in AI systems throughout their lifecycle.",related:["NIST AI RMF","ISO AI Standards","EU AI Act","OECD AI Standards","AI Lifecycle Security"]},
+  {term:"RAG",domain:"acr",domainLabel:"Acronym",def:"Retrieval-Augmented Generation -- an architecture pattern that combines information retrieval with generative AI to produce more accurate and grounded outputs by referencing external knowledge sources.",related:["Vector Storage","Embeddings","AI Hallucinations","LLMs"]}
+];
+
+// Deduplicate RAG: remove the acronym duplicate, keep domain 1 version
+// Actually both are valid entries (domain 1 full entry vs acronym). We'll keep both but differentiate.
+// The data already has them in separate domains, so they'll both appear.
+
+const domainColors = {
+  d1: 'badge-d1', d1l: 'badge-d1l', d2: 'badge-d2',
+  d3: 'badge-d3', d4: 'badge-d4', acr: 'badge-acr'
+};
+
+function slugify(t) {
+  return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+// Build glossary
+function buildGlossary() {
+  const sorted = [...TERMS].sort((a, b) => a.term.localeCompare(b.term, 'en', {sensitivity: 'base'}));
+  const container = document.getElementById('glossaryContent');
+  const letterSet = new Set();
+  let html = '';
+  let currentLetter = '';
+
+  sorted.forEach(item => {
+    const first = item.term[0].toUpperCase();
+    letterSet.add(first);
+    if (first !== currentLetter) {
+      currentLetter = first;
+      html += `<div class="letter-heading" id="letter-${first}">${first}</div>`;
+    }
+    const slug = slugify(item.term);
+    const relatedLinks = item.related.map(r => {
+      const rSlug = slugify(r);
+      return `<a href="#${rSlug}" onclick="scrollToTerm(event,'${rSlug}')">${r}</a>`;
+    }).join(', ');
+    html += `<div class="term-card" id="${slug}" data-domain="${item.domain}" data-term="${item.term.toLowerCase()}" data-def="${item.def.toLowerCase()}">
+      <span class="term-name">${item.term}</span>
+      <span class="domain-badge ${domainColors[item.domain]}">${item.domainLabel}</span>
+      <div class="term-def">${item.def}</div>
+      <div class="related"><span>Related:</span> ${relatedLinks}</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+
+  // Build letter nav
+  const navEl = document.getElementById('letterNav');
+  let navHtml = '';
+  for (let c = 65; c <= 90; c++) {
+    const ch = String.fromCharCode(c);
+    if (letterSet.has(ch)) {
+      navHtml += `<a href="#letter-${ch}" onclick="scrollToLetter(event,'${ch}')">${ch}</a>`;
+    } else {
+      navHtml += `<a class="disabled">${ch}</a>`;
+    }
+  }
+  navEl.innerHTML = navHtml;
+}
+
+function scrollToTerm(e, slug) {
+  e.preventDefault();
+  const el = document.getElementById(slug);
+  if (!el) return;
+  // Make sure it's visible
+  el.classList.remove('hidden');
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  el.classList.add('highlight');
+  setTimeout(() => el.classList.remove('highlight'), 1500);
+}
+
+function scrollToLetter(e, ch) {
+  e.preventDefault();
+  const el = document.getElementById('letter-' + ch);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Filtering
+let activeSearch = '';
+let activeDomain = 'all';
+
+function applyFilters() {
+  const cards = document.querySelectorAll('.term-card');
+  const letters = document.querySelectorAll('.letter-heading');
+  let count = 0;
+
+  // Track which letters have visible cards
+  const visibleLetters = new Set();
+
+  cards.forEach(card => {
+    const matchesDomain = activeDomain === 'all' || card.dataset.domain === activeDomain;
+    const matchesSearch = !activeSearch ||
+      card.dataset.term.includes(activeSearch) ||
+      card.dataset.def.includes(activeSearch);
+    if (matchesDomain && matchesSearch) {
+      card.classList.remove('hidden');
+      count++;
+      const first = card.dataset.term[0].toUpperCase();
+      visibleLetters.add(first);
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+
+  letters.forEach(lh => {
+    const ch = lh.id.replace('letter-', '');
+    if (visibleLetters.has(ch)) {
+      lh.classList.remove('hidden');
+    } else {
+      lh.classList.add('hidden');
+    }
+  });
+
+  document.getElementById('countDisplay').textContent = `Showing ${count} of ${TERMS.length} terms`;
+}
+
+document.getElementById('searchBox').addEventListener('input', function() {
+  activeSearch = this.value.toLowerCase().trim();
+  applyFilters();
+});
+
+document.getElementById('domainFilters').addEventListener('click', function(e) {
+  if (!e.target.classList.contains('domain-btn')) return;
+  document.querySelectorAll('.domain-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  activeDomain = e.target.dataset.domain;
+  applyFilters();
+});
+
+// Check for hash on load
+window.addEventListener('load', () => {
+  buildGlossary();
+  if (window.location.hash) {
+    const slug = window.location.hash.substring(1);
+    setTimeout(() => scrollToTerm({preventDefault:()=>{}}, slug), 300);
+  }
+});
+</script>
+</body>
+</html>

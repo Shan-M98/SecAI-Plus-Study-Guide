@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecAI+ AI/ML Concept Map</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 30px 20px 60px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #38bdf8;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    margin-bottom: 36px;
+  }
+
+  /* ── Tree hierarchy ── */
+  .tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  /* Node base */
+  .node {
+    position: relative;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-weight: 600;
+    text-align: center;
+    transition: transform .2s, box-shadow .2s, filter .2s;
+    cursor: default;
+    z-index: 2;
+    white-space: nowrap;
+  }
+  .node:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 0 24px rgba(56,189,248,.45);
+    z-index: 10;
+  }
+  .node .detail {
+    display: block;
+    font-weight: 400;
+    font-size: 0.75rem;
+    color: #cbd5e1;
+    white-space: normal;
+    max-width: 220px;
+    margin: 2px auto 0;
+  }
+
+  /* Level colours */
+  .lvl0 { background: linear-gradient(135deg,#6366f1,#818cf8); font-size: 1.35rem; padding: 14px 36px; }
+  .lvl1 { background: linear-gradient(135deg,#0ea5e9,#38bdf8); font-size: 1.05rem; }
+  .lvl2 { background: linear-gradient(135deg,#14b8a6,#2dd4bf); font-size: 0.92rem; color: #0f172a; }
+  .lvl3 { background: linear-gradient(135deg,#f59e0b,#fbbf24); font-size: 0.85rem; color: #0f172a; }
+  .lvl4 { background: linear-gradient(135deg,#f472b6,#fb7185); font-size: 0.82rem; }
+
+  /* Connector stem */
+  .stem {
+    width: 3px;
+    background: #334155;
+    height: 22px;
+    margin: 0 auto;
+  }
+
+  /* Children row */
+  .children {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  /* Branch wrapper */
+  .branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Horizontal rail connecting siblings */
+  .rail {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    margin-bottom: 0;
+  }
+  .rail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 3px;
+    background: #334155;
+  }
+
+  /* ── Key Relationships section ── */
+  .relationships {
+    margin-top: 56px;
+  }
+  .relationships h2 {
+    text-align: center;
+    color: #38bdf8;
+    font-size: 1.5rem;
+    margin-bottom: 28px;
+  }
+
+  .rel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .rel-card {
+    background: #1e293b;
+    border-radius: 14px;
+    padding: 22px 24px;
+    border-left: 4px solid;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .rel-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,.4);
+  }
+  .rel-card h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .rel-card.rag    { border-color: #a78bfa; }
+  .rel-card.rag h3 { color: #a78bfa; }
+  .rel-card.fine   { border-color: #f472b6; }
+  .rel-card.fine h3 { color: #f472b6; }
+  .rel-card.pipe   { border-color: #2dd4bf; }
+  .rel-card.pipe h3 { color: #2dd4bf; }
+  .rel-card.opt    { border-color: #fbbf24; }
+  .rel-card.opt h3 { color: #fbbf24; }
+  .rel-card.prompt { border-color: #38bdf8; }
+  .rel-card.prompt h3 { color: #38bdf8; }
+
+  /* Flow arrows inside cards */
+  .flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    line-height: 1.8;
+  }
+  .flow .step {
+    background: #334155;
+    padding: 5px 14px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .flow .arrow {
+    color: #64748b;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+  .flow .divider {
+    color: #64748b;
+    font-size: 0.9rem;
+    padding: 0 2px;
+  }
+
+  /* Hover highlight groups */
+  .branch[data-group]:hover .node { filter: brightness(1.25); }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 42px;
+    padding-top: 20px;
+    border-top: 1px solid #1e293b;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: #94a3b8;
+  }
+  .legend-dot {
+    width: 14px; height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>SecAI+ AI/ML Concept Map</h1>
+<p class="subtitle">CompTIA CY0-001 &mdash; How AI Concepts Nest &amp; Relate</p>
+
+<!-- ════════════ HIERARCHY ════════════ -->
+<div class="tree">
+
+  <!-- Root: AI -->
+  <div class="branch" data-group="ai">
+    <div class="node lvl0">Artificial Intelligence</div>
+    <div class="stem"></div>
+  </div>
+
+  <!-- Level 1 rail -->
+  <div class="rail"><div style="position:absolute;top:0;left:8%;right:8%;height:3px;background:#334155;"></div></div>
+  <div class="children" style="gap:32px;">
+
+    <!-- ── ML branch ── -->
+    <div class="branch" data-group="ml">
+      <div class="stem"></div>
+      <div class="node lvl1">Machine Learning</div>
+      <div class="stem"></div>
+      <div class="rail"><div style="position:absolute;top:0;left:4%;right:4%;height:3px;background:#334155;"></div></div>
+      <div class="children">
+
+        <div class="branch">
+          <div class="stem"></div>
+          <div class="node lvl2">Supervised Learning<span class="detail">Labeled data &rarr; spam detection, classification</span></div>
+        </div>
+
+        <div class="branch">
+          <div class="stem"></div>
+          <div class="node lvl2">Unsupervised Learning<span class="detail">Unlabeled data &rarr; clustering, anomaly detection</span></div>
+        </div>
+
+        <div class="branch">
+          <div class="stem"></div>
+          <div class="node lvl2">Reinforcement Learning<span class="detail">Rewards / penalties &rarr; game AI, RLHF</span></div>
+        </div>
+
+        <!-- Deep Learning sub-branch -->
+        <div class="branch" data-group="dl">
+          <div class="stem"></div>
+          <div class="node lvl2">Deep Learning<span class="detail">Multi-layer neural networks</span></div>
+          <div class="stem"></div>
+          <div class="rail"><div style="position:absolute;top:0;left:6%;right:6%;height:3px;background:#334155;"></div></div>
+          <div class="children">
+
+            <!-- Transformers -->
+            <div class="branch" data-group="tf">
+              <div class="stem"></div>
+              <div class="node lvl3">Transformers<span class="detail">Self-attention mechanism &rarr; foundation of LLMs</span></div>
+              <div class="stem"></div>
+              <div class="rail"><div style="position:absolute;top:0;left:10%;right:10%;height:3px;background:#334155;"></div></div>
+              <div class="children">
+                <div class="branch">
+                  <div class="stem"></div>
+                  <div class="node lvl4">Large Language Models<span class="detail">Billions of params: GPT-4, Claude</span></div>
+                </div>
+                <div class="branch">
+                  <div class="stem"></div>
+                  <div class="node lvl4">Small Language Models<span class="detail">Fewer params, specific tasks</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="branch">
+              <div class="stem"></div>
+              <div class="node lvl3">GANs<span class="detail">Generator vs discriminator &rarr; deepfakes</span></div>
+            </div>
+
+            <div class="branch">
+              <div class="stem"></div>
+              <div class="node lvl3">NLP<span class="detail">Understand &amp; generate human language</span></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Generative AI branch ── -->
+    <div class="branch" data-group="gen">
+      <div class="stem"></div>
+      <div class="node lvl1">Generative AI<span class="detail">Creates new content</span></div>
+      <div class="stem"></div>
+      <div class="children">
+        <div class="branch">
+          <div class="node lvl2" style="font-size:0.82rem;">Uses: LLMs, GANs,<br>Diffusion Models</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Statistical Learning branch ── -->
+    <div class="branch" data-group="stat">
+      <div class="stem"></div>
+      <div class="node lvl1">Statistical Learning<span class="detail">Regression, statistical methods</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════ KEY RELATIONSHIPS ════════════ -->
+<div class="relationships">
+  <h2>Key Relationships</h2>
+  <div class="rel-grid">
+
+    <!-- RAG pipeline -->
+    <div class="rel-card rag">
+      <h3>RAG Pipeline</h3>
+      <div class="flow">
+        <span class="step">RAG</span><span class="arrow">&rarr;</span>
+        <span class="step">Embeddings</span><span class="arrow">&rarr;</span>
+        <span class="step">Vector Storage</span><span class="arrow">&rarr;</span>
+        <span class="step" style="background:#2d1b4e;">Reduces Hallucinations</span>
+      </div>
+    </div>
+
+    <!-- Fine-tuning -->
+    <div class="rel-card fine">
+      <h3>Fine-Tuning &amp; Transfer Learning</h3>
+      <div class="flow">
+        <span class="step">Fine-Tuning</span><span class="arrow">&rarr;</span>
+        <span class="step">Adapts Pre-trained Models</span><span class="arrow">&rarr;</span>
+        <span class="step" style="background:#4a1942;">Can Inherit Transfer Learning Vulnerabilities</span>
+      </div>
+    </div>
+
+    <!-- Training pipeline -->
+    <div class="rel-card pipe">
+      <h3>Training Pipeline</h3>
+      <div class="flow">
+        <span class="step">Data Cleansing</span><span class="arrow">&rarr;</span>
+        <span class="step">Data Verification</span><span class="arrow">&rarr;</span>
+        <span class="step">Data Balancing</span><span class="arrow">&rarr;</span>
+        <span class="step">Data Augmentation</span><span class="arrow">&rarr;</span>
+        <span class="step">Model Training (Epochs)</span><span class="arrow">&rarr;</span>
+        <span class="step">Model Validation</span><span class="arrow">&rarr;</span>
+        <span class="step" style="background:#134e4a;">Deployment</span>
+      </div>
+    </div>
+
+    <!-- Optimization -->
+    <div class="rel-card opt">
+      <h3>Model Optimization</h3>
+      <div class="flow">
+        <span class="step">Pruning</span><span class="divider">(remove connections)</span>
+        <span class="arrow">|</span>
+        <span class="step">Quantization</span><span class="divider">(reduce precision)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step" style="background:#452a08;">Smaller, Faster Models</span>
+      </div>
+    </div>
+
+    <!-- Prompting -->
+    <div class="rel-card prompt">
+      <h3>Prompting Techniques</h3>
+      <div class="flow">
+        <span class="step">System Prompts</span><span class="divider">(developer)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">User Prompts</span><span class="divider">(end user)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="step">Zero-shot</span>
+        <span class="arrow">/</span>
+        <span class="step">One-shot</span>
+        <span class="arrow">/</span>
+        <span class="step">Multi-shot</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#6366f1;"></div>Root &mdash; AI</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#0ea5e9;"></div>Level 1 &mdash; Major Branches</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#14b8a6;"></div>Level 2 &mdash; Techniques</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f59e0b;"></div>Level 3 &mdash; Architectures</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f472b6;"></div>Level 4 &mdash; Model Types</div>
+</div>
+
+</body>
+</html>

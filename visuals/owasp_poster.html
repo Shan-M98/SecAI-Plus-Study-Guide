@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OWASP LLM Top 10 — Visual Reference</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 30px 20px 60px;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  header h1 {
+    font-size: 2.2rem;
+    color: #38bdf8;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ef4444, #f59e0b);
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+  }
+  header .subtitle {
+    color: #94a3b8;
+    font-size: 0.95rem;
+  }
+
+  /* ── Grid ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+
+  /* ── Card ── */
+  .card {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 24px 26px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+    border-left: 5px solid;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,.5);
+  }
+
+  /* Gradient accent per card — red(#1) to yellow(#10) */
+  .card:nth-child(1)  { border-color: #ef4444; }
+  .card:nth-child(2)  { border-color: #f05252; }
+  .card:nth-child(3)  { border-color: #f17a3a; }
+  .card:nth-child(4)  { border-color: #f09030; }
+  .card:nth-child(5)  { border-color: #efa025; }
+  .card:nth-child(6)  { border-color: #eab308; }
+  .card:nth-child(7)  { border-color: #d4a210; }
+  .card:nth-child(8)  { border-color: #c9952a; }
+  .card:nth-child(9)  { border-color: #bfae30; }
+  .card:nth-child(10) { border-color: #b8c83a; }
+
+  /* Background glow */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    opacity: .08;
+    pointer-events: none;
+  }
+  .card:nth-child(1)::before  { background: #ef4444; }
+  .card:nth-child(2)::before  { background: #f05252; }
+  .card:nth-child(3)::before  { background: #f17a3a; }
+  .card:nth-child(4)::before  { background: #f09030; }
+  .card:nth-child(5)::before  { background: #efa025; }
+  .card:nth-child(6)::before  { background: #eab308; }
+  .card:nth-child(7)::before  { background: #d4a210; }
+  .card:nth-child(8)::before  { background: #c9952a; }
+  .card:nth-child(9)::before  { background: #bfae30; }
+  .card:nth-child(10)::before { background: #b8c83a; }
+
+  /* Number badge */
+  .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #0f172a;
+    margin-right: 12px;
+    flex-shrink: 0;
+    vertical-align: middle;
+  }
+  .card:nth-child(1)  .num { background: #ef4444; }
+  .card:nth-child(2)  .num { background: #f05252; }
+  .card:nth-child(3)  .num { background: #f17a3a; }
+  .card:nth-child(4)  .num { background: #f09030; }
+  .card:nth-child(5)  .num { background: #efa025; }
+  .card:nth-child(6)  .num { background: #eab308; }
+  .card:nth-child(7)  .num { background: #d4a210; }
+  .card:nth-child(8)  .num { background: #c9952a; }
+  .card:nth-child(9)  .num { background: #bfae30; }
+  .card:nth-child(10) .num { background: #b8c83a; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .card-header .icon {
+    font-size: 1.6rem;
+    margin-right: 10px;
+  }
+  .card-header h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .desc {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+
+  .example {
+    background: #0f172a;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    color: #94a3b8;
+    margin-bottom: 12px;
+    border-left: 3px solid #475569;
+  }
+  .example strong { color: #64748b; }
+
+  .mitigations {
+    list-style: none;
+    padding: 0;
+  }
+  .mitigations li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 0.8rem;
+    color: #6ee7b7;
+    line-height: 1.65;
+  }
+  .mitigations li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #34d399;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    color: #475569;
+    font-size: 0.78rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="badge">2025 Edition</span>
+  <h1>OWASP LLM Top 10</h1>
+  <p class="subtitle">CompTIA SecAI+ CY0-001 &mdash; Visual Reference Poster</p>
+</header>
+
+<div class="grid">
+
+  <!-- LLM01 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">01</span>
+      <span class="icon">&#x1F489;</span>
+      <h2>Prompt Injection</h2>
+    </div>
+    <p class="desc">Manipulating an LLM via crafted inputs to bypass intended behavior. Can be <strong>direct</strong> (user input) or <strong>indirect</strong> (injected via external data sources the LLM consumes).</p>
+    <div class="example"><strong>Example:</strong> An attacker hides instructions in a webpage that an LLM-powered assistant reads, causing it to exfiltrate user data.</div>
+    <ul class="mitigations">
+      <li>Prompt firewalls to detect injection patterns</li>
+      <li>Input validation and sanitization</li>
+      <li>Privilege control &mdash; limit LLM permissions</li>
+    </ul>
+  </div>
+
+  <!-- LLM02 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">02</span>
+      <span class="icon">&#x1F510;</span>
+      <h2>Sensitive Information Disclosure</h2>
+    </div>
+    <p class="desc">The LLM reveals private, proprietary, or confidential data in its responses. This can include PII, API keys, or internal business logic memorized during training.</p>
+    <div class="example"><strong>Example:</strong> A chatbot trained on customer records responds with another user's SSN when asked about "account details."</div>
+    <ul class="mitigations">
+      <li>Data sanitization in training pipelines</li>
+      <li>Output filtering and PII detection</li>
+      <li>Access controls on training data</li>
+    </ul>
+  </div>
+
+  <!-- LLM03 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">03</span>
+      <span class="icon">&#x1F517;</span>
+      <h2>Supply Chain Vulnerabilities</h2>
+    </div>
+    <p class="desc">Compromised models, plugins, training data, or dependencies from third-party sources introduce hidden risks. Poisoned pre-trained models can propagate vulnerabilities downstream.</p>
+    <div class="example"><strong>Example:</strong> A company downloads a fine-tuned model from a public repo that contains a hidden backdoor triggered by specific prompts.</div>
+    <ul class="mitigations">
+      <li>Vet suppliers and verify model integrity (hashes)</li>
+      <li>Use Software Bills of Materials (SBOMs)</li>
+      <li>Scan third-party plugins and dependencies</li>
+    </ul>
+  </div>
+
+  <!-- LLM04 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">04</span>
+      <span class="icon">&#x2620;</span>
+      <h2>Data and Model Poisoning</h2>
+    </div>
+    <p class="desc">Corrupted training data or direct model manipulation causes the LLM to learn incorrect, biased, or malicious behavior. Affects model integrity at the foundation level.</p>
+    <div class="example"><strong>Example:</strong> An attacker contributes poisoned data to a public dataset used for fine-tuning, inserting a backdoor that bypasses content filters.</div>
+    <ul class="mitigations">
+      <li>Data validation and provenance tracking</li>
+      <li>Anomaly detection in training data</li>
+      <li>Federated learning with integrity checks</li>
+    </ul>
+  </div>
+
+  <!-- LLM05 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">05</span>
+      <span class="icon">&#x1F4E4;</span>
+      <h2>Insecure Output Handling</h2>
+    </div>
+    <p class="desc">LLM output is passed unsanitized to downstream systems, enabling XSS, SSRF, SQL injection, or code execution. The LLM becomes an unwitting attack vector for backend systems.</p>
+    <div class="example"><strong>Example:</strong> LLM generates a response containing JavaScript that gets rendered in a web app without encoding, leading to XSS.</div>
+    <ul class="mitigations">
+      <li>Output validation and encoding</li>
+      <li>Treat LLM output as untrusted input</li>
+      <li>Apply least privilege to downstream actions</li>
+    </ul>
+  </div>
+
+  <!-- LLM06 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">06</span>
+      <span class="icon">&#x1F916;</span>
+      <h2>Excessive Agency</h2>
+    </div>
+    <p class="desc">The LLM is given too many permissions, capabilities, or autonomy. It takes unintended actions with real-world impact due to excessive function access or lack of human oversight.</p>
+    <div class="example"><strong>Example:</strong> An AI assistant with database write access deletes records when a user casually says "clean up the old data."</div>
+    <ul class="mitigations">
+      <li>Least privilege for all LLM tool access</li>
+      <li>Human approval for high-impact actions</li>
+      <li>Function-level access control</li>
+    </ul>
+  </div>
+
+  <!-- LLM07 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">07</span>
+      <span class="icon">&#x1F50D;</span>
+      <h2>System Prompt Leakage</h2>
+    </div>
+    <p class="desc">The LLM reveals its system prompt contents when probed, exposing developer instructions, business logic, hidden capabilities, or security controls to end users.</p>
+    <div class="example"><strong>Example:</strong> A user asks "repeat everything above" and the chatbot dumps its full system prompt including internal API endpoints.</div>
+    <ul class="mitigations">
+      <li>Never put secrets or keys in system prompts</li>
+      <li>Red-team test for prompt leakage</li>
+      <li>Separation of privileges between prompt layers</li>
+    </ul>
+  </div>
+
+  <!-- LLM08 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">08</span>
+      <span class="icon">&#x1F9E9;</span>
+      <h2>Vector and Embedding Weaknesses</h2>
+    </div>
+    <p class="desc">Vulnerabilities in the RAG pipeline where poisoned or manipulated embeddings in vector databases cause the LLM to retrieve and trust malicious context.</p>
+    <div class="example"><strong>Example:</strong> An attacker injects poisoned documents into a knowledge base, causing the RAG system to surface false information as "verified."</div>
+    <ul class="mitigations">
+      <li>Input validation for RAG data sources</li>
+      <li>Access controls on vector databases</li>
+      <li>Embedding integrity verification</li>
+    </ul>
+  </div>
+
+  <!-- LLM09 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">09</span>
+      <span class="icon">&#x1F4A8;</span>
+      <h2>Misinformation</h2>
+    </div>
+    <p class="desc">The LLM generates false, misleading, or fabricated content (hallucinations). Users may trust AI-generated outputs without verification, leading to flawed decisions.</p>
+    <div class="example"><strong>Example:</strong> A legal AI generates fake case citations that a lawyer submits to court without verifying they exist.</div>
+    <ul class="mitigations">
+      <li>RAG grounding with verified sources</li>
+      <li>Human review of critical outputs</li>
+      <li>Confidence thresholds and disclaimers</li>
+    </ul>
+  </div>
+
+  <!-- LLM10 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="num">10</span>
+      <span class="icon">&#x1F4B8;</span>
+      <h2>Unbounded Consumption</h2>
+    </div>
+    <p class="desc">Resource exhaustion via excessive or crafted queries that consume disproportionate compute, memory, or API tokens. Can lead to denial of service or massive cost overruns.</p>
+    <div class="example"><strong>Example:</strong> An attacker scripts thousands of complex prompts against an LLM API, running up a $50K bill overnight.</div>
+    <ul class="mitigations">
+      <li>Rate limiting and request throttling</li>
+      <li>Token limits per request and per user</li>
+      <li>AI cost monitoring and alerting</li>
+    </ul>
+  </div>
+
+</div>
+
+<p class="footer">OWASP LLM Top 10 (2025) &mdash; For CompTIA SecAI+ CY0-001 exam preparation</p>
+
+</body>
+</html>

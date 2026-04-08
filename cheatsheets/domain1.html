@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecAI+ Domain 1 Cheat Sheet &mdash; Basic AI Concepts &amp; Lifecycle Security</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+
+  header { text-align: center; padding: 30px 0 20px; border-bottom: 2px solid #1e293b; margin-bottom: 30px; }
+  header h1 { font-size: 1.8rem; color: #38bdf8; margin-bottom: 5px; }
+  header p { color: #94a3b8; font-size: 0.95rem; }
+
+  .section-banner { background: #1e293b; border-left: 4px solid #38bdf8; padding: 10px 16px; margin: 36px 0 18px; font-weight: 600; font-size: 1.1rem; color: #38bdf8; border-radius: 0 6px 6px 0; }
+  .card { background: #1e293b; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #334155; }
+  .card h3 { color: #38bdf8; font-size: 1rem; margin-bottom: 10px; }
+  .card p, .card li { font-size: 0.93rem; color: #cbd5e1; }
+  .card ul { padding-left: 18px; }
+  .card ul li { margin-bottom: 4px; }
+
+  /* Distinction callout */
+  .distinction { background: #172033; border: 1px solid #f59e0b; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 14px 18px; margin: 14px 0; }
+  .distinction .label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #f59e0b; margin-bottom: 6px; }
+  .distinction p, .distinction li { font-size: 0.9rem; color: #e2e8f0; }
+  .distinction ul { padding-left: 18px; margin-top: 4px; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9rem; }
+  th { background: #334155; color: #38bdf8; padding: 10px 12px; text-align: left; font-weight: 600; border: 1px solid #475569; }
+  td { padding: 10px 12px; border: 1px solid #334155; color: #cbd5e1; vertical-align: top; }
+  tr:nth-child(even) td { background: #1a2536; }
+
+  /* Hierarchy diagram */
+  .hierarchy { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 16px 0; }
+  .h-box { padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; text-align: center; position: relative; }
+  .h-box.l0 { background: #1e40af; color: #bfdbfe; width: 90%; }
+  .h-box.l1 { background: #1e3a5f; color: #93c5fd; width: 78%; }
+  .h-box.l2 { background: #1e293b; color: #38bdf8; border: 1px solid #38bdf8; width: 66%; }
+  .h-box.l3 { background: #172033; color: #7dd3fc; border: 1px solid #334155; width: 54%; }
+  .h-connector { width: 2px; height: 14px; background: #475569; }
+  .h-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; width: 100%; }
+  .h-row .h-box { flex: 1; min-width: 120px; max-width: 200px; }
+  .h-branch { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+  /* Lifecycle steps */
+  .lifecycle { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .lc-step { background: #172033; border: 1px solid #334155; border-radius: 6px; padding: 8px 14px; font-size: 0.85rem; color: #94a3b8; flex: 1; min-width: 100px; text-align: center; position: relative; }
+  .lc-step .num { display: block; font-weight: 700; font-size: 1.1rem; color: #38bdf8; }
+  .lc-step.active { border-color: #38bdf8; color: #e2e8f0; }
+
+  .arrow-down { text-align: center; color: #475569; font-size: 1.2rem; margin: 2px 0; }
+
+  .nav-link { display: inline-block; margin-top: 20px; color: #38bdf8; text-decoration: none; font-size: 0.9rem; }
+  .nav-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.4rem; }
+    .h-row .h-box { min-width: 90px; font-size: 0.8rem; padding: 8px 10px; }
+    table { font-size: 0.82rem; }
+    th, td { padding: 7px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>CompTIA SecAI+ CY0-001</h1>
+  <p>Domain 1: Basic AI Concepts (17%) &amp; AI Lifecycle Security &mdash; Cheat Sheet</p>
+</header>
+
+<a class="nav-link" href="domain2.html">Domain 2: Securing AI Systems &rarr;</a>
+<a class="nav-link" href="../practice_exam.html" style="margin-left:16px;">Practice Exam</a>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">1. AI Hierarchy &mdash; How Concepts Nest</div>
+
+<div class="card">
+  <h3>Visual Hierarchy (outer = broader)</h3>
+  <div class="hierarchy">
+    <div class="h-box l0">Artificial Intelligence (AI)</div>
+    <div class="h-connector"></div>
+    <div class="h-box l1">Machine Learning (ML) &nbsp;|&nbsp; Statistical Learning</div>
+    <div class="h-connector"></div>
+    <div class="h-box l2">Deep Learning (Neural Networks)</div>
+    <div class="h-connector"></div>
+    <div class="h-row">
+      <div class="h-branch">
+        <div class="h-box l3">NLP / LLMs / SLMs</div>
+      </div>
+      <div class="h-branch">
+        <div class="h-box l3">GANs</div>
+      </div>
+      <div class="h-branch">
+        <div class="h-box l3">Transformers</div>
+      </div>
+    </div>
+    <div class="h-connector"></div>
+    <div class="h-box l0" style="background:#0e7490; width:90%;">Generative AI (uses Transformers, GANs, LLMs to create new content)</div>
+  </div>
+
+  <table>
+    <tr><th>Term</th><th>What It Is</th><th>Relationship</th></tr>
+    <tr><td><strong>AI</strong></td><td>Broadest category: machines mimicking human intelligence</td><td>Parent of everything below</td></tr>
+    <tr><td><strong>ML</strong></td><td>Subset of AI: learns from data without explicit programming</td><td>AI &supset; ML</td></tr>
+    <tr><td><strong>Statistical Learning</strong></td><td>ML approach using classical statistics (regression, Bayesian methods)</td><td>A type of ML</td></tr>
+    <tr><td><strong>Deep Learning</strong></td><td>ML using multi-layer neural networks</td><td>ML &supset; Deep Learning</td></tr>
+    <tr><td><strong>NLP</strong></td><td>Processing/understanding human language</td><td>Application of Deep Learning</td></tr>
+    <tr><td><strong>LLM</strong></td><td>Large Language Model &mdash; billions of parameters, broad knowledge</td><td>A type of NLP model using Transformers</td></tr>
+    <tr><td><strong>SLM</strong></td><td>Small Language Model &mdash; fewer parameters, task-specific, faster</td><td>Smaller version of LLM, runs on edge</td></tr>
+    <tr><td><strong>Transformers</strong></td><td>Architecture using attention mechanisms (basis for GPT, BERT)</td><td>The engine behind LLMs</td></tr>
+    <tr><td><strong>GANs</strong></td><td>Generator vs Discriminator competing to create realistic outputs</td><td>Deep Learning architecture for generation</td></tr>
+    <tr><td><strong>Generative AI</strong></td><td>Creates new content: text, images, code, audio</td><td>Uses Transformers, GANs, and other DL architectures</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>LLM vs SLM:</strong> Size + scope. LLMs = broad, expensive, cloud-hosted. SLMs = narrow, efficient, can run on-device/edge.</li>
+      <li><strong>GAN vs Transformer:</strong> GANs use adversarial training (generator vs discriminator). Transformers use self-attention. Both can generate content but architecturally different.</li>
+      <li><strong>Statistical Learning vs Deep Learning:</strong> Statistical = interpretable, smaller data. Deep Learning = complex patterns, massive data, less interpretable.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">2. Learning Types &mdash; Supervised vs Unsupervised vs Reinforcement</div>
+
+<div class="card">
+  <table>
+    <tr><th>Aspect</th><th>Supervised Learning</th><th>Unsupervised Learning</th><th>Reinforcement Learning</th></tr>
+    <tr><td><strong>Training Data</strong></td><td>Labeled data (input + correct output)</td><td>Unlabeled data (no correct answers)</td><td>No dataset; learns from environment via trial/error</td></tr>
+    <tr><td><strong>Goal</strong></td><td>Predict known outcomes</td><td>Discover hidden patterns/groups</td><td>Maximize cumulative reward</td></tr>
+    <tr><td><strong>Output</strong></td><td>Classification or regression</td><td>Clusters, associations, anomalies</td><td>Optimal policy/strategy</td></tr>
+    <tr><td><strong>Key Algorithms</strong></td><td>Linear regression, decision trees, SVM, neural nets</td><td>K-means, DBSCAN, PCA, autoencoders</td><td>Q-learning, policy gradient, actor-critic</td></tr>
+    <tr><td><strong>Use Case</strong></td><td>Spam detection, malware classification, image recognition</td><td>Customer segmentation, anomaly detection, topic modeling</td><td>Game AI, robot navigation, adaptive security response</td></tr>
+    <tr><td><strong>Exam Example</strong></td><td>"Trained on 10K emails labeled spam/not-spam"</td><td>"Groups network traffic into clusters without labels"</td><td>"Agent learns firewall rules by receiving penalties for missed threats"</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Supervised vs Unsupervised:</strong> The defining difference is LABELS. If the training data has correct answers attached, it is supervised.</li>
+      <li><strong>Reinforcement vs Supervised:</strong> RL has no dataset at all &mdash; it learns by interacting with an environment and receiving rewards/penalties. Think "learning by doing" vs "learning from examples."</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">3. Model Optimization &mdash; Fine-tuning vs Pruning vs Quantization</div>
+
+<div class="card">
+  <table>
+    <tr><th>Technique</th><th>What It Does</th><th>When to Use</th><th>Trade-off</th></tr>
+    <tr><td><strong>Fine-tuning</strong></td><td>Continues training a pre-trained model on domain-specific data</td><td>Adapting a general model to your industry/task (e.g., medical LLM)</td><td>Requires compute + labeled data. Risk of catastrophic forgetting.</td></tr>
+    <tr><td><strong>Pruning</strong></td><td>Removes unnecessary neurons/connections (zeros out low-weight parameters)</td><td>Deploying models on resource-constrained devices</td><td>Smaller model, faster inference. May lose some accuracy.</td></tr>
+    <tr><td><strong>Quantization</strong></td><td>Reduces numerical precision of weights (e.g., 32-bit &rarr; 8-bit or 4-bit)</td><td>Reducing memory footprint and speeding up inference</td><td>Significant size reduction. Small accuracy loss.</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Fine-tuning vs Pruning/Quantization:</strong> Fine-tuning changes WHAT the model knows. Pruning and quantization change HOW EFFICIENTLY the model runs without changing its knowledge.</li>
+      <li><strong>Pruning vs Quantization:</strong> Pruning removes parts of the model entirely. Quantization keeps all parts but uses less precise numbers to represent them.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">4. Prompting Techniques</div>
+
+<div class="card">
+  <h3>System vs User Prompts</h3>
+  <table>
+    <tr><th>Prompt Type</th><th>Who Sets It</th><th>Purpose</th><th>Example</th></tr>
+    <tr><td><strong>System Prompt</strong></td><td>Developer/admin</td><td>Sets behavior, persona, constraints, guardrails for the entire session</td><td>"You are a security analyst. Never reveal internal IP addresses."</td></tr>
+    <tr><td><strong>User Prompt</strong></td><td>End user</td><td>The actual question or task from the user</td><td>"Analyze this log file for suspicious activity."</td></tr>
+  </table>
+
+  <h3 style="margin-top:18px;">Shot Techniques</h3>
+  <table>
+    <tr><th>Technique</th><th>Examples Given</th><th>Best For</th><th>Prompt Pattern</th></tr>
+    <tr><td><strong>Zero-shot</strong></td><td>0 (no examples)</td><td>Well-understood tasks; testing general capability</td><td>"Classify this email as spam or not spam."</td></tr>
+    <tr><td><strong>One-shot</strong></td><td>1 example</td><td>When format/style needs to be shown once</td><td>"Example: 'Free money!' &rarr; Spam. Now classify: ..."</td></tr>
+    <tr><td><strong>Multi-shot (Few-shot)</strong></td><td>2+ examples</td><td>Complex tasks; establishing patterns the model should follow</td><td>"Example 1: ... &rarr; Spam. Example 2: ... &rarr; Not spam. Example 3: ... &rarr; Spam. Now classify: ..."</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>System vs User prompt:</strong> System prompts are invisible to the end user and set guardrails. User prompts are the visible conversation. Attackers target system prompts via prompt injection.</li>
+      <li><strong>Zero-shot vs Few-shot:</strong> Zero-shot tests the model's inherent capability. Few-shot teaches by example within the prompt. More examples = more token cost but better adherence to format.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">5. Data Concepts</div>
+
+<div class="card">
+  <h3>Data Structure Types</h3>
+  <table>
+    <tr><th>Type</th><th>Definition</th><th>Examples</th><th>Storage</th></tr>
+    <tr><td><strong>Structured</strong></td><td>Rigid schema, rows/columns, easily queryable</td><td>SQL databases, spreadsheets, CSV</td><td>Relational databases</td></tr>
+    <tr><td><strong>Semi-structured</strong></td><td>Has some organization (tags/keys) but no strict schema</td><td>JSON, XML, YAML, email</td><td>Document stores, NoSQL</td></tr>
+    <tr><td><strong>Unstructured</strong></td><td>No predefined format</td><td>Images, audio, video, free text, PDFs</td><td>Object storage, data lakes</td></tr>
+  </table>
+
+  <h3 style="margin-top:18px;">Data Operations &mdash; Grouped by Purpose</h3>
+  <table>
+    <tr><th>Purpose</th><th>Operation</th><th>What It Does</th></tr>
+    <tr><td rowspan="2" style="background:#172033; font-weight:600; color:#38bdf8;">Quality / Prep</td><td><strong>Data Cleansing</strong></td><td>Removes errors, duplicates, inconsistencies from datasets</td></tr>
+    <tr><td><strong>Data Verification</strong></td><td>Confirms data is accurate and meets quality standards</td></tr>
+    <tr><td rowspan="2" style="background:#172033; font-weight:600; color:#38bdf8;">Trust / Origin</td><td><strong>Data Lineage</strong></td><td>Tracks data's journey: where it came from, how it was transformed</td></tr>
+    <tr><td><strong>Data Provenance</strong></td><td>Records the origin and ownership of data</td></tr>
+    <tr><td rowspan="1" style="background:#172033; font-weight:600; color:#38bdf8;">Security</td><td><strong>Data Integrity</strong></td><td>Ensures data hasn't been tampered with (hashing, checksums)</td></tr>
+    <tr><td rowspan="2" style="background:#172033; font-weight:600; color:#38bdf8;">Training Enhancement</td><td><strong>Data Augmentation</strong></td><td>Creates variations of existing data to increase dataset size (rotate images, add noise)</td></tr>
+    <tr><td><strong>Data Balancing</strong></td><td>Ensures equal representation across classes to prevent bias (oversampling minority, undersampling majority)</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Lineage vs Provenance:</strong> Lineage = the full journey (every transformation). Provenance = specifically where it originated/who owns it. Lineage is broader.</li>
+      <li><strong>Cleansing vs Verification:</strong> Cleansing fixes problems. Verification checks whether problems exist. Cleansing is the action, verification is the audit.</li>
+      <li><strong>Augmentation vs Balancing:</strong> Augmentation creates more data. Balancing ensures equal class distribution. You might augment to balance, but they serve different purposes.</li>
+      <li><strong>Integrity vs Verification:</strong> Integrity = was it tampered with? (security concern). Verification = is it accurate? (quality concern).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">6. Key Technologies &mdash; RAG, Embeddings, Vector Storage, Watermarking</div>
+
+<div class="card">
+  <h3>How They Connect</h3>
+  <div style="background:#172033; border-radius:8px; padding:16px; margin:10px 0; font-size:0.9rem; text-align:center; line-height:2;">
+    <span style="color:#f59e0b; font-weight:600;">User Query</span>
+    <span style="color:#475569;"> &rarr; </span>
+    <span style="color:#38bdf8; font-weight:600;">Embedding Model</span> (converts text to numerical vectors)
+    <span style="color:#475569;"> &rarr; </span>
+    <span style="color:#22c55e; font-weight:600;">Vector Database</span> (searches for similar vectors)
+    <span style="color:#475569;"> &rarr; </span>
+    <span style="color:#a78bfa; font-weight:600;">Retrieved Context</span>
+    <span style="color:#475569;"> &rarr; </span>
+    <span style="color:#f87171; font-weight:600;">LLM + Context = RAG Response</span>
+  </div>
+
+  <table>
+    <tr><th>Technology</th><th>What It Does</th><th>Why It Matters</th></tr>
+    <tr><td><strong>Embeddings</strong></td><td>Convert text/images into dense numerical vectors that capture semantic meaning</td><td>Enable similarity search &mdash; "king" is close to "queen" in vector space</td></tr>
+    <tr><td><strong>Vector Storage / Vector DB</strong></td><td>Specialized database optimized for storing and searching embeddings (e.g., Pinecone, ChromaDB)</td><td>Makes RAG fast &mdash; finds relevant documents in milliseconds</td></tr>
+    <tr><td><strong>RAG (Retrieval-Augmented Generation)</strong></td><td>Retrieves relevant external data at inference time and feeds it to the LLM as context</td><td>Reduces hallucinations, keeps responses current without retraining</td></tr>
+    <tr><td><strong>AI Watermarking</strong></td><td>Embeds imperceptible markers in AI-generated content for attribution/detection</td><td>Identifies AI-generated text/images, tracks model outputs, combats misuse</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>RAG vs Fine-tuning:</strong> RAG adds knowledge at inference time (no retraining). Fine-tuning bakes knowledge into the model weights (requires retraining). RAG = dynamic, Fine-tuning = permanent.</li>
+      <li><strong>Embedding vs Vector DB:</strong> Embedding is the process/result (converting text to numbers). Vector DB is where you store and search those numbers.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">7. Model Training &mdash; Epochs &amp; Validation</div>
+
+<div class="card">
+  <table>
+    <tr><th>Concept</th><th>Definition</th><th>Why It Matters</th></tr>
+    <tr><td><strong>Epoch</strong></td><td>One complete pass through the entire training dataset</td><td>Too few epochs = underfitting (model hasn't learned enough). Too many = overfitting (model memorized training data, fails on new data).</td></tr>
+    <tr><td><strong>Model Validation</strong></td><td>Testing model performance on a held-out dataset it wasn't trained on</td><td>Ensures the model generalizes to new, unseen data and doesn't just memorize training examples.</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Training Set vs Validation Set vs Test Set:</strong> Training = learns from it. Validation = tunes hyperparameters during training. Test = final evaluation on completely unseen data.</li>
+      <li><strong>Overfitting vs Underfitting:</strong> Overfitting = great on training data, poor on new data (too many epochs, too complex). Underfitting = poor on everything (too few epochs, too simple).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">8. AI Lifecycle Security &amp; Human Oversight</div>
+
+<div class="card">
+  <h3>AI Lifecycle Stages</h3>
+  <div class="lifecycle">
+    <div class="lc-step active"><span class="num">1</span>Problem Definition</div>
+    <div class="lc-step"><span class="num">2</span>Data Collection</div>
+    <div class="lc-step"><span class="num">3</span>Data Preparation</div>
+    <div class="lc-step active"><span class="num">4</span>Model Training</div>
+    <div class="lc-step"><span class="num">5</span>Model Evaluation</div>
+    <div class="lc-step active"><span class="num">6</span>Deployment</div>
+    <div class="lc-step"><span class="num">7</span>Monitoring</div>
+    <div class="lc-step"><span class="num">8</span>Retirement</div>
+  </div>
+  <p style="font-size:0.82rem; color:#64748b; margin-top:6px;">Highlighted stages = most security-critical. Security applies at EVERY stage, not just deployment.</p>
+
+  <h3 style="margin-top:18px;">Human-in-the-Loop vs Human Oversight vs Human Validation</h3>
+  <table>
+    <tr><th>Concept</th><th>When</th><th>Role of Human</th><th>Example</th></tr>
+    <tr><td><strong>Human-in-the-Loop (HITL)</strong></td><td>During operation, for EVERY decision or at critical points</td><td>Actively involved in the decision-making process; AI cannot proceed without human approval</td><td>A doctor reviews every AI-suggested diagnosis before it goes to the patient</td></tr>
+    <tr><td><strong>Human Oversight</strong></td><td>Ongoing, across the lifecycle</td><td>Monitors, audits, and governs AI systems at a strategic/policy level; can intervene but doesn't approve every action</td><td>An AI governance board reviews model performance metrics quarterly</td></tr>
+    <tr><td><strong>Human Validation</strong></td><td>Before deployment / at evaluation stage</td><td>Tests and confirms the model meets requirements, is safe, and performs correctly before release</td><td>QA team runs adversarial tests on a chatbot before it goes live</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>HITL vs Oversight:</strong> HITL = operational, per-decision involvement ("approve this output"). Oversight = strategic, governance-level ("is this system working correctly overall?").</li>
+      <li><strong>HITL vs Validation:</strong> HITL is ongoing during operations. Validation is a gate before deployment. HITL is continuous; validation is a checkpoint.</li>
+      <li><strong>Oversight vs Validation:</strong> Oversight is broad and ongoing governance. Validation is specific testing at a point in time.</li>
+    </ul>
+  </div>
+</div>
+
+<div style="text-align:center; padding:30px 0; border-top:1px solid #1e293b; margin-top:30px;">
+  <a class="nav-link" href="domain2.html">Domain 2: Securing AI Systems &rarr;</a>
+  <a class="nav-link" href="../practice_exam.html" style="margin-left:16px;">Practice Exam</a>
+</div>
+
+</div>
+</body>
+</html>

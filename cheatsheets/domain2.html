@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecAI+ Domain 2 Cheat Sheet &mdash; Securing AI Systems</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+
+  header { text-align: center; padding: 30px 0 20px; border-bottom: 2px solid #1e293b; margin-bottom: 30px; }
+  header h1 { font-size: 1.8rem; color: #38bdf8; margin-bottom: 5px; }
+  header p { color: #94a3b8; font-size: 0.95rem; }
+
+  .section-banner { background: #1e293b; border-left: 4px solid #38bdf8; padding: 10px 16px; margin: 36px 0 18px; font-weight: 600; font-size: 1.1rem; color: #38bdf8; border-radius: 0 6px 6px 0; }
+  .card { background: #1e293b; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px; border: 1px solid #334155; }
+  .card h3 { color: #38bdf8; font-size: 1rem; margin-bottom: 10px; }
+  .card h4 { color: #f59e0b; font-size: 0.92rem; margin: 16px 0 8px; }
+  .card p, .card li { font-size: 0.93rem; color: #cbd5e1; }
+  .card ul { padding-left: 18px; }
+  .card ul li { margin-bottom: 4px; }
+
+  .distinction { background: #172033; border: 1px solid #f59e0b; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 14px 18px; margin: 14px 0; }
+  .distinction .label { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #f59e0b; margin-bottom: 6px; }
+  .distinction p, .distinction li { font-size: 0.9rem; color: #e2e8f0; }
+  .distinction ul { padding-left: 18px; margin-top: 4px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9rem; }
+  th { background: #334155; color: #38bdf8; padding: 10px 12px; text-align: left; font-weight: 600; border: 1px solid #475569; }
+  td { padding: 10px 12px; border: 1px solid #334155; color: #cbd5e1; vertical-align: top; }
+  tr:nth-child(even) td { background: #1a2536; }
+
+  /* Defense stack */
+  .defense-stack { display: flex; flex-direction: column; gap: 0; margin: 14px 0; }
+  .ds-layer { display: flex; align-items: stretch; border: 1px solid #334155; }
+  .ds-layer:not(:last-child) { border-bottom: none; }
+  .ds-layer:first-child { border-radius: 8px 8px 0 0; }
+  .ds-layer:last-child { border-radius: 0 0 8px 8px; }
+  .ds-label { width: 140px; flex-shrink: 0; padding: 10px 14px; font-weight: 600; font-size: 0.82rem; display: flex; align-items: center; }
+  .ds-content { flex: 1; padding: 10px 14px; font-size: 0.88rem; color: #cbd5e1; border-left: 1px solid #334155; }
+  .ds-content strong { color: #e2e8f0; }
+  .l-outer { background: #1e3a5f; color: #93c5fd; }
+  .l-mid { background: #172033; color: #7dd3fc; }
+  .l-inner { background: #1e293b; color: #38bdf8; }
+  .l-core { background: #0e3a2e; color: #4ade80; }
+
+  /* Attack phase tags */
+  .phase-tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-bottom: 6px; }
+  .phase-training { background: #7c3aed22; border: 1px solid #7c3aed; color: #c4b5fd; }
+  .phase-inference { background: #f59e0b22; border: 1px solid #f59e0b; color: #fde68a; }
+  .phase-output { background: #ef444422; border: 1px solid #ef4444; color: #fca5a5; }
+  .phase-extraction { background: #06b6d422; border: 1px solid #06b6d4; color: #a5f3fc; }
+  .phase-design { background: #64748b22; border: 1px solid #64748b; color: #cbd5e1; }
+
+  .attack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 10px 0; }
+  .attack-card { background: #172033; border-radius: 6px; padding: 12px 16px; border: 1px solid #334155; }
+  .attack-card strong { color: #e2e8f0; font-size: 0.92rem; display: block; margin-bottom: 4px; }
+  .attack-card p { font-size: 0.85rem; color: #94a3b8; margin: 0; }
+
+  .nav-link { display: inline-block; margin-top: 20px; color: #38bdf8; text-decoration: none; font-size: 0.9rem; }
+  .nav-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.4rem; }
+    .attack-grid { grid-template-columns: 1fr; }
+    .ds-label { width: 100px; font-size: 0.75rem; }
+    table { font-size: 0.82rem; }
+    th, td { padding: 7px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>CompTIA SecAI+ CY0-001</h1>
+  <p>Domain 2: Securing AI Systems (40%) &mdash; Cheat Sheet</p>
+</header>
+
+<a class="nav-link" href="domain1.html">&larr; Domain 1: Basic AI Concepts</a>
+<a class="nav-link" href="../practice_exam.html" style="margin-left:16px;">Practice Exam</a>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">1. Frameworks &amp; Resources &mdash; Which to Use When</div>
+
+<div class="card">
+  <table>
+    <tr><th>Framework</th><th>Maintained By</th><th>Focus</th><th>When to Reference</th></tr>
+    <tr><td><strong>OWASP LLM Top 10</strong></td><td>OWASP</td><td>Top 10 vulnerabilities specific to Large Language Models (prompt injection, data poisoning, etc.)</td><td>Building, deploying, or auditing LLM-based applications</td></tr>
+    <tr><td><strong>OWASP ML Security Top 10</strong></td><td>OWASP</td><td>Top 10 vulnerabilities for all machine learning systems (broader than just LLMs)</td><td>Any ML system, not limited to language models</td></tr>
+    <tr><td><strong>MITRE ATLAS</strong></td><td>MITRE</td><td>Adversarial threat landscape for AI systems &mdash; tactics, techniques, procedures (TTPs) mapped like ATT&CK but for AI</td><td>Threat modeling, red teaming, understanding adversary behavior against AI</td></tr>
+    <tr><td><strong>MIT AI Risk Repository</strong></td><td>MIT</td><td>Comprehensive database of AI risks across domains (not just security &mdash; includes ethical, societal, economic risks)</td><td>Risk assessment, governance, understanding broad AI risk landscape</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>OWASP LLM Top 10 vs ML Top 10:</strong> LLM Top 10 is specific to language models (prompt injection, hallucinations). ML Top 10 covers all ML (adversarial examples, model theft). If the question says "LLM" or "chatbot," think LLM Top 10. If it says "ML model" or "classifier," think ML Top 10.</li>
+      <li><strong>MITRE ATLAS vs OWASP lists:</strong> ATLAS maps adversary TTPs (like ATT&CK for AI). OWASP lists rank vulnerabilities. ATLAS = "how attackers attack." OWASP = "what vulnerabilities exist."</li>
+      <li><strong>MIT AI Risk Repository vs the others:</strong> MIT is the broadest &mdash; it includes non-security risks (bias, job displacement, misinformation). The others are security-focused.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">2. Defensive Controls &mdash; Defense-in-Depth Stack</div>
+
+<div class="card">
+  <p style="margin-bottom:12px; font-size:0.88rem; color:#94a3b8;">Ordered from outermost (network/access) to innermost (model behavior). Multiple layers provide defense-in-depth.</p>
+
+  <div class="defense-stack">
+    <div class="ds-layer">
+      <div class="ds-label l-outer">Perimeter</div>
+      <div class="ds-content"><strong>Endpoint Access Controls</strong> &mdash; Authentication, authorization, API keys. Who can access the AI system at all?</div>
+    </div>
+    <div class="ds-layer">
+      <div class="ds-label l-outer">Perimeter</div>
+      <div class="ds-content"><strong>Rate Limits &amp; Token Limits</strong> &mdash; Prevent abuse via volume. Rate limits cap requests/time. Token limits cap input/output size per request.</div>
+    </div>
+    <div class="ds-layer">
+      <div class="ds-label l-mid">Input Layer</div>
+      <div class="ds-content"><strong>Prompt Firewalls</strong> &mdash; Inspect and filter incoming prompts for known attack patterns (injection, jailbreak attempts) before they reach the model.</div>
+    </div>
+    <div class="ds-layer">
+      <div class="ds-label l-mid">Input Layer</div>
+      <div class="ds-content"><strong>Input Quotas &amp; Modality Limits</strong> &mdash; Restrict what types of input are accepted (text only? images? files?) and maximum input sizes per modality.</div>
+    </div>
+    <div class="ds-layer">
+      <div class="ds-label l-inner">Prompt Layer</div>
+      <div class="ds-content"><strong>Prompt Templates</strong> &mdash; Pre-structured prompts that constrain user input to specific fields, preventing freeform injection.</div>
+    </div>
+    <div class="ds-layer">
+      <div class="ds-label l-core">Model Layer</div>
+      <div class="ds-content"><strong>Guardrails</strong> &mdash; Rules enforced within or around the model: topic restrictions, output filters, content policies, safety classifiers. The last line of defense on model behavior.</div>
+    </div>
+  </div>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Prompt Firewall vs Guardrails:</strong> Prompt firewalls filter INPUT before the model sees it. Guardrails constrain the model's BEHAVIOR and OUTPUT. Think: firewall = gate at the door. Guardrails = rules inside the house.</li>
+      <li><strong>Prompt Templates vs Prompt Firewalls:</strong> Templates structurally prevent freeform input (the user fills in blanks). Firewalls analyze freeform input for malicious content. Templates = prevention by design. Firewalls = detection and blocking.</li>
+      <li><strong>Rate Limits vs Token Limits:</strong> Rate limits = requests per time period (e.g., 100/min). Token limits = size per request (e.g., max 4096 tokens). Both prevent abuse but measure different things.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">3. Attack Types &mdash; Grouped by Phase</div>
+
+<div class="card">
+  <h4><span class="phase-tag phase-training">TRAINING PHASE</span> Attacks That Corrupt the Model Before Deployment</h4>
+  <div class="attack-grid">
+    <div class="attack-card">
+      <strong>Data Poisoning</strong>
+      <p>Injecting malicious/misleading data into the training set to corrupt model behavior.</p>
+    </div>
+    <div class="attack-card">
+      <strong>Model Poisoning</strong>
+      <p>Directly tampering with model weights or architecture (e.g., inserting backdoors into a pre-trained model).</p>
+    </div>
+    <div class="attack-card">
+      <strong>Model Skewing</strong>
+      <p>Subtly biasing training data distribution so the model favors certain outcomes (a form of data poisoning).</p>
+    </div>
+    <div class="attack-card">
+      <strong>Transfer Learning Attacks</strong>
+      <p>Exploiting vulnerabilities in a pre-trained base model that persist after fine-tuning. Attacker compromises the foundation model.</p>
+    </div>
+    <div class="attack-card">
+      <strong>AI Supply Chain Attacks</strong>
+      <p>Compromising third-party models, datasets, libraries, or frameworks that are integrated into the AI pipeline.</p>
+    </div>
+  </div>
+
+  <h4><span class="phase-tag phase-inference">INFERENCE PHASE</span> Attacks on Live Model Input</h4>
+  <div class="attack-grid">
+    <div class="attack-card">
+      <strong>Prompt Injection</strong>
+      <p>Crafting inputs that override system instructions or make the model execute unintended actions. Can be direct (user input) or indirect (hidden in retrieved data).</p>
+    </div>
+    <div class="attack-card">
+      <strong>Jailbreaking</strong>
+      <p>Bypassing the model's safety guardrails to produce restricted content. A specific type of prompt manipulation targeting safety filters.</p>
+    </div>
+    <div class="attack-card">
+      <strong>Input Manipulation / Adversarial Examples</strong>
+      <p>Subtly modifying inputs (images, text) to cause misclassification. Imperceptible to humans but fools the model.</p>
+    </div>
+    <div class="attack-card">
+      <strong>Model DoS / Resource Exhaustion</strong>
+      <p>Sending complex, resource-intensive queries to overwhelm the model's compute resources. Targets availability.</p>
+    </div>
+  </div>
+
+  <h4><span class="phase-tag phase-output">OUTPUT PHASE</span> Problems with Model Responses</h4>
+  <div class="attack-grid">
+    <div class="attack-card">
+      <strong>AI Hallucinations</strong>
+      <p>Model confidently generates false, fabricated, or nonsensical information. Not an "attack" but a vulnerability if outputs are trusted.</p>
+    </div>
+    <div class="attack-card">
+      <strong>Insecure Output Handling</strong>
+      <p>Failing to sanitize/validate model outputs before using them in downstream systems (e.g., injecting SQL via LLM output). OWASP LLM #2.</p>
+    </div>
+  </div>
+
+  <h4><span class="phase-tag phase-extraction">DATA EXTRACTION</span> Stealing Model Knowledge or Training Data</h4>
+  <div class="attack-grid">
+    <div class="attack-card">
+      <strong>Model Inversion</strong>
+      <p>Querying the model to reconstruct sensitive training data (e.g., recovering faces used to train a facial recognition system).</p>
+    </div>
+    <div class="attack-card">
+      <strong>Model Theft / Extraction</strong>
+      <p>Querying a model extensively to replicate its functionality, creating a stolen copy. Targets intellectual property.</p>
+    </div>
+    <div class="attack-card">
+      <strong>Membership Inference</strong>
+      <p>Determining whether a specific data point was used in training. Privacy risk: "Was my medical record in the training data?"</p>
+    </div>
+  </div>
+
+  <h4><span class="phase-tag phase-design">DESIGN FLAWS</span> Architectural / Trust Issues</h4>
+  <div class="attack-grid">
+    <div class="attack-card">
+      <strong>Excessive Agency</strong>
+      <p>Giving the AI system too many permissions, capabilities, or autonomy. It can take actions beyond what's intended (e.g., an AI assistant that can delete files).</p>
+    </div>
+    <div class="attack-card">
+      <strong>Overreliance</strong>
+      <p>Humans blindly trusting AI outputs without verification. Leads to acting on hallucinations or biased recommendations.</p>
+    </div>
+  </div>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Prompt Injection vs Jailbreaking:</strong> Prompt injection overrides instructions to make the model do something unintended. Jailbreaking specifically bypasses safety filters to produce restricted content. All jailbreaking is a form of prompt manipulation, but not all prompt injection is jailbreaking.</li>
+      <li><strong>Data Poisoning vs Model Poisoning:</strong> Data poisoning corrupts the training DATA. Model poisoning directly modifies the model WEIGHTS/architecture. Data poisoning is indirect; model poisoning is direct.</li>
+      <li><strong>Model Inversion vs Membership Inference:</strong> Inversion reconstructs actual training data. Membership inference only determines IF a data point was used. Inversion is more damaging.</li>
+      <li><strong>Model Theft vs Model Inversion:</strong> Theft steals the model's functionality (IP). Inversion steals the training data (privacy). Different targets.</li>
+      <li><strong>Excessive Agency vs Overreliance:</strong> Excessive agency = the AI has too much POWER. Overreliance = the human gives too much TRUST. One is a technical flaw, the other is a human behavior problem.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">4. Data Protection</div>
+
+<div class="card">
+  <h3>Encryption States</h3>
+  <table>
+    <tr><th>State</th><th>What It Protects</th><th>Technologies</th><th>Example</th></tr>
+    <tr><td><strong>In Transit</strong></td><td>Data moving between systems (network)</td><td>TLS/SSL, HTTPS, VPN, IPsec</td><td>API call from app to AI model endpoint</td></tr>
+    <tr><td><strong>At Rest</strong></td><td>Data stored on disk/database</td><td>AES-256, BitLocker, LUKS, cloud KMS</td><td>Training dataset stored in cloud storage</td></tr>
+    <tr><td><strong>In Use</strong></td><td>Data being actively processed in memory</td><td>Homomorphic encryption, secure enclaves (SGX/TrustZone), confidential computing</td><td>Model running inference on sensitive data without decrypting it</td></tr>
+  </table>
+
+  <h3 style="margin-top:18px;">Privacy Techniques</h3>
+  <table>
+    <tr><th>Technique</th><th>What It Does</th><th>Reversible?</th><th>Example</th></tr>
+    <tr><td><strong>Anonymization</strong></td><td>Permanently removes all personally identifiable information. Data cannot be traced back to individuals.</td><td>No (irreversible)</td><td>Replace all names with random IDs, remove DOB, zip codes</td></tr>
+    <tr><td><strong>Redaction</strong></td><td>Permanently removes or blacks out specific sensitive content from documents/data.</td><td>No (irreversible)</td><td>Blacking out SSN in a PDF before feeding to AI</td></tr>
+    <tr><td><strong>Masking</strong></td><td>Replaces sensitive data with fictional but realistic substitutes. Original data preserved elsewhere.</td><td>Yes (reversible with key)</td><td>Credit card: 4532-XXXX-XXXX-7890</td></tr>
+    <tr><td><strong>Minimization</strong></td><td>Collecting/retaining only the data strictly necessary for the purpose.</td><td>N/A (design principle)</td><td>Only collecting city instead of full address for demographic analysis</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Anonymization vs Masking:</strong> Anonymization is IRREVERSIBLE &mdash; you cannot get back to the original. Masking is REVERSIBLE &mdash; the real data exists somewhere and can be unmasked. Exam loves this difference.</li>
+      <li><strong>Anonymization vs Redaction:</strong> Both are irreversible, but anonymization transforms identifiers across a dataset. Redaction removes/covers specific content in a document. Anonymization = dataset-wide. Redaction = document-level.</li>
+      <li><strong>Minimization vs the others:</strong> Minimization is a COLLECTION principle (don't gather it in the first place). The others are PROCESSING techniques (handle data you already have).</li>
+      <li><strong>In Use vs At Rest:</strong> "In use" encryption is the hardest to implement and most tested on the exam. If the question mentions "processing sensitive data without exposing it" or "confidential computing," the answer is encryption in use.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">5. Monitoring &amp; Logging</div>
+
+<div class="card">
+  <table>
+    <tr><th>Control</th><th>What It Does</th><th>Why It Matters for AI</th></tr>
+    <tr><td><strong>Prompt Monitoring</strong></td><td>Logging and analyzing all prompts sent to the AI system</td><td>Detects prompt injection attempts, abuse patterns, policy violations. Essential for incident response.</td></tr>
+    <tr><td><strong>Log Sanitization</strong></td><td>Removing sensitive data (PII, secrets, credentials) from logs before storage</td><td>AI logs may capture user inputs containing sensitive data. Unsanitized logs become a data leak vector.</td></tr>
+    <tr><td><strong>Response Confidence Level</strong></td><td>Tracking and exposing the model's confidence score for each response</td><td>Low-confidence responses are more likely to be hallucinations. Can trigger human review for low-confidence outputs.</td></tr>
+    <tr><td><strong>AI Cost Monitoring</strong></td><td>Tracking compute costs, token usage, and resource consumption</td><td>Detects abuse (cryptomining via AI resources), budget overruns, and Model DoS attacks. Unusual cost spikes = potential attack.</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Prompt Monitoring vs Log Sanitization:</strong> Monitoring is about ANALYZING what was sent (detection). Sanitization is about CLEANING what gets stored (privacy). You need both: monitor for attacks, but sanitize before long-term storage.</li>
+      <li><strong>Response Confidence vs Hallucination:</strong> Confidence level is a METRIC. Hallucination is a FAILURE MODE. Low confidence does not always mean hallucination, and high confidence does not guarantee accuracy. But monitoring confidence helps catch hallucinations.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<div class="section-banner">6. Data Classification Labels</div>
+
+<div class="card">
+  <p style="margin-bottom:12px;">Data classification determines what protections are required. AI systems process data at many sensitivity levels, so classification drives access controls, encryption requirements, and handling procedures.</p>
+
+  <table>
+    <tr><th>Label</th><th>Description</th><th>AI Relevance</th></tr>
+    <tr><td><strong>Public</strong></td><td>No restrictions. Open to anyone.</td><td>Safe for training data, public-facing AI outputs</td></tr>
+    <tr><td><strong>Internal / Private</strong></td><td>For internal use only. Breach causes minor harm.</td><td>Internal documents used for RAG must stay internal</td></tr>
+    <tr><td><strong>Confidential</strong></td><td>Sensitive business data. Breach causes significant harm.</td><td>Customer data, proprietary models, fine-tuning datasets</td></tr>
+    <tr><td><strong>Restricted / Top Secret</strong></td><td>Highest sensitivity. Breach causes severe harm.</td><td>PII in training data, trade secrets in model weights, classified information</td></tr>
+  </table>
+
+  <div class="distinction">
+    <div class="label">Key Distinctions</div>
+    <ul>
+      <li><strong>Classification vs Labeling:</strong> Classification is the policy/decision (this data is "confidential"). Labeling is the act of marking/tagging it so systems and people can enforce the classification.</li>
+      <li><strong>Why classification matters for AI:</strong> A model trained on "restricted" data may leak that data through model inversion or memorization. The classification of training data should determine the classification of the model itself.</li>
+    </ul>
+  </div>
+</div>
+
+<div style="text-align:center; padding:30px 0; border-top:1px solid #1e293b; margin-top:30px;">
+  <a class="nav-link" href="domain1.html">&larr; Domain 1: Basic AI Concepts</a>
+  <a class="nav-link" href="../practice_exam.html" style="margin-left:16px;">Practice Exam</a>
+</div>
+
+</div>
+</body>
+</html>

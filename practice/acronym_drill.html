@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecAI+ Acronym Speed Drill</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f172a;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 900px;
+    width: 100%;
+  }
+  h1 {
+    text-align: center;
+    color: #38bdf8;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    text-align: center;
+    color: #94a3b8;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+  }
+  .stats-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #334155;
+  }
+  .stat { text-align: center; }
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #38bdf8;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .timer-danger .stat-value { color: #f87171; }
+  .game-area {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid #334155;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .acronym-display {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #38bdf8;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .hint-text {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+  .input-row {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  #answerInput {
+    background: #0f172a;
+    border: 2px solid #334155;
+    color: #e2e8f0;
+    padding: 0.75rem 1.25rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #answerInput:focus { border-color: #38bdf8; }
+  #submitBtn, .btn {
+    background: #38bdf8;
+    color: #0f172a;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #submitBtn:hover, .btn:hover { background: #7dd3fc; }
+  .btn-secondary {
+    background: #334155;
+    color: #e2e8f0;
+  }
+  .btn-secondary:hover { background: #475569; }
+  .feedback {
+    min-height: 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    transition: opacity 0.3s;
+  }
+  .feedback.correct { color: #4ade80; }
+  .feedback.wrong { color: #f87171; }
+  .start-screen, .end-screen { text-align: center; }
+  .start-screen p { color: #94a3b8; margin-bottom: 1.5rem; line-height: 1.6; }
+  .end-screen h2 { color: #38bdf8; margin-bottom: 1rem; }
+  .final-score {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 1rem 0;
+  }
+  .final-score .correct-count { color: #4ade80; }
+  .final-score .total-count { color: #94a3b8; }
+  .wrong-list {
+    text-align: left;
+    background: #0f172a;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .wrong-list h3 {
+    color: #f87171;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+  .wrong-item {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #1e293b;
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .wrong-item:last-child { border-bottom: none; }
+  .wrong-item .acro { color: #38bdf8; font-weight: 700; min-width: 80px; }
+  .wrong-item .ans { color: #94a3b8; }
+  .wrong-item .your-ans { color: #f87171; font-style: italic; margin-left: 0.5rem; font-size: 0.85rem; }
+  .progress-bar-bg {
+    width: 100%;
+    height: 4px;
+    background: #334155;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: #38bdf8;
+    transition: width 0.1s linear;
+  }
+  .buttons-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    .acronym-display { font-size: 2.5rem; }
+    .stats-bar { flex-wrap: wrap; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>SecAI+ Acronym Speed Drill</h1>
+  <p class="subtitle">CompTIA CY0-001 Exam Prep &mdash; Type the full expansion of each acronym</p>
+
+  <div class="stats-bar">
+    <div class="stat" id="timerStat">
+      <div class="stat-value" id="timerDisplay">60</div>
+      <div class="stat-label">Seconds</div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="timerBar" style="width:100%"></div></div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="correctDisplay">0</div>
+      <div class="stat-label">Correct</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="attemptDisplay">0</div>
+      <div class="stat-label">Attempted</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="streakDisplay">0</div>
+      <div class="stat-label">Streak</div>
+    </div>
+  </div>
+
+  <div class="game-area" id="gameArea">
+    <!-- Start Screen -->
+    <div class="start-screen" id="startScreen">
+      <div class="acronym-display">READY?</div>
+      <p>You have <strong>60 seconds</strong> to expand as many acronyms as possible.<br>
+      Answers are case insensitive. Minor typos are forgiven.<br>
+      Press Enter or click Submit after each answer.</p>
+      <button class="btn" onclick="startGame()">Start Drill</button>
+    </div>
+
+    <!-- Play Screen -->
+    <div id="playScreen" style="display:none">
+      <div class="acronym-display" id="acronymShow"></div>
+      <div class="hint-text" id="hintText"></div>
+      <div class="input-row">
+        <input type="text" id="answerInput" placeholder="Type the full expansion..." autocomplete="off" />
+        <button id="submitBtn" onclick="submitAnswer()">Submit</button>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <!-- End Screen -->
+    <div class="end-screen" id="endScreen" style="display:none">
+      <h2>Time's Up!</h2>
+      <div class="final-score">
+        <span class="correct-count" id="finalCorrect">0</span>
+        <span class="total-count"> / <span id="finalTotal">0</span></span>
+      </div>
+      <p style="color:#94a3b8" id="percentText"></p>
+      <div class="wrong-list" id="wrongList" style="display:none">
+        <h3>Review &mdash; Missed Acronyms:</h3>
+        <div id="wrongItems"></div>
+      </div>
+      <div class="buttons-row">
+        <button class="btn" onclick="startGame()">Play Again</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ACRONYMS = [
+  { abbr: "AI", full: "Artificial Intelligence" },
+  { abbr: "ML", full: "Machine Learning" },
+  { abbr: "NLP", full: "Natural Language Processing" },
+  { abbr: "LLM", full: "Large Language Model" },
+  { abbr: "SLM", full: "Small Language Model" },
+  { abbr: "GAN", full: "Generative Adversarial Network" },
+  { abbr: "RAG", full: "Retrieval-Augmented Generation", alts: ["Retrieval Augmented Generation"] },
+  { abbr: "ATLAS", full: "Adversarial Threat Landscape for Artificial Intelligence Systems", alts: ["Adversarial Threat Landscape for AI Systems"] },
+  { abbr: "AIRMF", full: "AI Risk Management Framework" },
+  { abbr: "MLOps", full: "Machine Learning Operations" },
+  { abbr: "OWASP", full: "Open Web Application Security Project" },
+  { abbr: "MITRE", full: "Not an acronym, it is a proper name", alts: ["not an acronym", "proper name", "its not an acronym", "it is not an acronym", "it is a proper name", "a proper name", "not an acronym it is a proper name"] },
+  { abbr: "NIST", full: "National Institute of Standards and Technology" },
+  { abbr: "RMF", full: "Risk Management Framework" },
+  { abbr: "OECD", full: "Organisation for Economic Co-operation and Development", alts: ["Organization for Economic Cooperation and Development", "Organisation for Economic Cooperation and Development", "Organization for Economic Co-operation and Development"] },
+  { abbr: "ISO", full: "International Organization for Standardization", alts: ["International Organisation for Standardization"] },
+  { abbr: "IEC", full: "International Electrotechnical Commission" },
+  { abbr: "EU", full: "European Union" },
+  { abbr: "PII", full: "Personally Identifiable Information" },
+  { abbr: "MCP", full: "Model Context Protocol" },
+  { abbr: "CI/CD", full: "Continuous Integration / Continuous Deployment", alts: ["Continuous Integration / Continuous Delivery", "Continuous Integration Continuous Deployment", "Continuous Integration Continuous Delivery", "Continuous Integration/Continuous Deployment", "Continuous Integration/Continuous Delivery"] },
+  { abbr: "DoS", full: "Denial of Service" },
+  { abbr: "TLS", full: "Transport Layer Security" },
+  { abbr: "API", full: "Application Programming Interface" },
+  { abbr: "HTTPS", full: "Hypertext Transfer Protocol Secure", alts: ["HyperText Transfer Protocol Secure"] },
+  { abbr: "SGX", full: "Software Guard Extensions" },
+  { abbr: "SIEM", full: "Security Information and Event Management" },
+  { abbr: "OSINT", full: "Open Source Intelligence", alts: ["Open-Source Intelligence"] },
+  { abbr: "DAN", full: "Do Anything Now" }
+];
+
+let timer, timeLeft, score, attempts, streak, wrongAnswers, usedIndices, currentIndex;
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function similarity(a, b) {
+  a = a.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
+  b = b.toLowerCase().replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ').trim();
+  if (a === b) return 1;
+  const len = Math.max(a.length, b.length);
+  if (len === 0) return 1;
+  const dist = levenshtein(a, b);
+  return 1 - dist / len;
+}
+
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+    }
+  }
+  return dp[m][n];
+}
+
+function isCorrect(userAnswer, item) {
+  const candidates = [item.full, ...(item.alts || [])];
+  for (const c of candidates) {
+    if (similarity(userAnswer, c) >= 0.82) return true;
+  }
+  return false;
+}
+
+function startGame() {
+  score = 0; attempts = 0; streak = 0; timeLeft = 60;
+  wrongAnswers = [];
+  usedIndices = shuffle([...Array(ACRONYMS.length).keys()]);
+  currentIndex = 0;
+
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('endScreen').style.display = 'none';
+  document.getElementById('playScreen').style.display = 'block';
+
+  updateStats();
+  showNext();
+
+  timer = setInterval(() => {
+    timeLeft--;
+    updateTimer();
+    if (timeLeft <= 0) endGame();
+  }, 1000);
+}
+
+function updateTimer() {
+  document.getElementById('timerDisplay').textContent = timeLeft;
+  document.getElementById('timerBar').style.width = (timeLeft / 60 * 100) + '%';
+  const ts = document.getElementById('timerStat');
+  ts.classList.toggle('timer-danger', timeLeft <= 10);
+}
+
+function updateStats() {
+  document.getElementById('timerDisplay').textContent = timeLeft;
+  document.getElementById('correctDisplay').textContent = score;
+  document.getElementById('attemptDisplay').textContent = attempts;
+  document.getElementById('streakDisplay').textContent = streak;
+  updateTimer();
+}
+
+function showNext() {
+  if (currentIndex >= usedIndices.length) {
+    usedIndices = shuffle([...Array(ACRONYMS.length).keys()]);
+    currentIndex = 0;
+  }
+  const item = ACRONYMS[usedIndices[currentIndex]];
+  document.getElementById('acronymShow').textContent = item.abbr;
+  const wordCount = item.full.split(' ').length;
+  document.getElementById('hintText').textContent = `(${wordCount} word${wordCount > 1 ? 's' : ''})`;
+  document.getElementById('answerInput').value = '';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('answerInput').focus();
+}
+
+function submitAnswer() {
+  if (timeLeft <= 0) return;
+  const input = document.getElementById('answerInput');
+  const userAns = input.value.trim();
+  if (!userAns) return;
+
+  const item = ACRONYMS[usedIndices[currentIndex]];
+  const correct = isCorrect(userAns, item);
+  const fb = document.getElementById('feedback');
+
+  attempts++;
+  if (correct) {
+    score++;
+    streak++;
+    fb.textContent = 'Correct!';
+    fb.className = 'feedback correct';
+  } else {
+    streak = 0;
+    fb.innerHTML = `Wrong &mdash; <strong>${item.full}</strong>`;
+    fb.className = 'feedback wrong';
+    wrongAnswers.push({ abbr: item.abbr, correct: item.full, yours: userAns });
+  }
+  updateStats();
+  currentIndex++;
+
+  setTimeout(() => {
+    if (timeLeft > 0) showNext();
+  }, correct ? 400 : 1200);
+}
+
+function endGame() {
+  clearInterval(timer);
+  document.getElementById('playScreen').style.display = 'none';
+  document.getElementById('endScreen').style.display = 'block';
+
+  document.getElementById('finalCorrect').textContent = score;
+  document.getElementById('finalTotal').textContent = attempts;
+  const pct = attempts > 0 ? Math.round(score / attempts * 100) : 0;
+  document.getElementById('percentText').textContent = `${pct}% accuracy`;
+
+  const wl = document.getElementById('wrongList');
+  const wi = document.getElementById('wrongItems');
+  wi.innerHTML = '';
+  if (wrongAnswers.length > 0) {
+    wl.style.display = 'block';
+    wrongAnswers.forEach(w => {
+      const d = document.createElement('div');
+      d.className = 'wrong-item';
+      d.innerHTML = `<span class="acro">${w.abbr}</span><span class="ans">${w.correct}</span><span class="your-ans">You typed: "${w.yours}"</span>`;
+      wi.appendChild(d);
+    });
+  } else {
+    wl.style.display = 'block';
+    wi.innerHTML = '<p style="color:#4ade80;text-align:center">Perfect round! No missed acronyms.</p>';
+  }
+}
+
+document.getElementById('answerInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitAnswer();
+});
+</script>
+</body>
+</html>

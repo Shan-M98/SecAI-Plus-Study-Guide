@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecAI+ Exam Day Strategy Guide</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #38bdf8;
+            font-size: 2.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            color: #38bdf8;
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #1e3a5f;
+        }
+
+        h3 {
+            color: #7dd3fc;
+            font-size: 1.15rem;
+            margin-top: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p { margin-bottom: 0.8rem; }
+
+        .section {
+            background: #1e293b;
+            border-radius: 10px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #38bdf8;
+        }
+
+        .callout {
+            background: #172554;
+            border: 1px solid #1e40af;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .callout.tip { border-color: #16a34a; background: #052e16; }
+        .callout.tip::before { content: "TIP"; color: #4ade80; }
+        .callout.warning { border-color: #d97706; background: #451a03; }
+        .callout.warning::before { content: "WATCH OUT"; color: #fbbf24; }
+        .callout.critical { border-color: #dc2626; background: #450a0a; }
+        .callout.critical::before { content: "CRITICAL"; color: #f87171; }
+
+        .callout::before {
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.08em;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        ul, ol { padding-left: 1.5rem; margin-bottom: 0.8rem; }
+        li { margin-bottom: 0.35rem; }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .overview-item {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .overview-label { color: #94a3b8; font-size: 0.9rem; }
+        .overview-value { color: #38bdf8; font-weight: 700; font-size: 1.1rem; }
+
+        /* Domain weight bar chart */
+        .bar-chart { margin: 1.2rem 0; }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.6rem;
+        }
+
+        .bar-label {
+            width: 220px;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .bar-track {
+            flex: 1;
+            background: #0f172a;
+            border-radius: 6px;
+            height: 28px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            transition: width 0.6s ease;
+        }
+
+        .bar-fill.d1 { background: linear-gradient(90deg, #0ea5e9, #38bdf8); }
+        .bar-fill.d2 { background: linear-gradient(90deg, #dc2626, #f87171); }
+        .bar-fill.d3 { background: linear-gradient(90deg, #d97706, #fbbf24); }
+        .bar-fill.d4 { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin: 1.5rem 0;
+            padding: 0.5rem 0;
+        }
+
+        .timeline-track {
+            width: 100%;
+            height: 8px;
+            background: #334155;
+            border-radius: 4px;
+            position: relative;
+            margin: 2.5rem 0 3rem 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            top: -22px;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .timeline-marker .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #38bdf8;
+            border: 3px solid #0f172a;
+            margin: 0 auto 4px auto;
+        }
+
+        .timeline-marker .label-top {
+            font-size: 0.75rem;
+            color: #38bdf8;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .timeline-marker .label-bottom {
+            position: absolute;
+            top: 38px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        .timeline-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9, #7dd3fc);
+        }
+
+        /* Pass strategy boxes */
+        .pass-boxes {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .pass-box {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            border-top: 3px solid #38bdf8;
+        }
+
+        .pass-box .pass-num {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #38bdf8;
+        }
+
+        .pass-box .pass-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .pass-box .pass-time {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .pass-box .pass-desc {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            margin-top: 0.5rem;
+        }
+
+        /* Trap comparison table */
+        .trap-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .trap-table th {
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 0.7rem;
+            text-align: left;
+            border-bottom: 2px solid #334155;
+        }
+
+        .trap-table td {
+            padding: 0.6rem 0.7rem;
+            border-bottom: 1px solid #1e3a5f;
+            vertical-align: top;
+        }
+
+        .trap-table tr:hover { background: #172554; }
+
+        .trap-table .vs { color: #f87171; font-weight: 700; text-align: center; }
+
+        .keyword { color: #fbbf24; font-weight: 700; }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0 0.5rem 2rem;
+            position: relative;
+            border-bottom: 1px solid #1e3a5f;
+        }
+
+        .checklist li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.65rem;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #38bdf8;
+            border-radius: 4px;
+            background: transparent;
+        }
+
+        .checklist li .time-tag {
+            display: inline-block;
+            background: #172554;
+            color: #38bdf8;
+            font-size: 0.75rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+
+        strong { color: #f0f4f8; }
+
+        .nav-links {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #1e3a5f;
+        }
+
+        .nav-links a {
+            color: #38bdf8;
+            text-decoration: none;
+            margin: 0 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover { text-decoration: underline; }
+
+        @media (max-width: 640px) {
+            .overview-grid { grid-template-columns: 1fr; }
+            .pass-boxes { grid-template-columns: 1fr; }
+            .bar-label { width: 140px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SecAI+ Exam Day Strategy Guide</h1>
+        <p class="subtitle">CompTIA CY0-001 &mdash; Everything you need to walk in confident and walk out certified</p>
+
+        <!-- EXAM OVERVIEW -->
+        <h2>Exam Overview</h2>
+        <div class="section">
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <span class="overview-label">Exam Code</span>
+                    <span class="overview-value">CY0-001</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Questions</span>
+                    <span class="overview-value">Up to 110</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Question Types</span>
+                    <span class="overview-value">MC / Multi-Select</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Time Limit</span>
+                    <span class="overview-value">165 minutes</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Passing Score</span>
+                    <span class="overview-value">~750 / 900</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Passing Estimate</span>
+                    <span class="overview-value">Roughly 70%+</span>
+                </div>
+            </div>
+
+            <h3>Domain Weights</h3>
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <span class="overview-label">D1 &mdash; AI Concepts &amp; Terminology</span>
+                    <span class="overview-value">17%</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">D2 &mdash; Security Principles for AI</span>
+                    <span class="overview-value">40%</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">D3 &mdash; AI-Assisted Security</span>
+                    <span class="overview-value">24%</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">D4 &mdash; Governance &amp; Compliance</span>
+                    <span class="overview-value">19%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIME MANAGEMENT -->
+        <h2>Time Management Strategy</h2>
+        <div class="section">
+            <div class="callout tip">
+                <p><strong>165 minutes / 110 questions = ~1.5 minutes per question.</strong> That sounds tight, but many questions will take under a minute if you know the material. Budget that saved time for the hard ones.</p>
+            </div>
+
+            <h3>Three-Pass Approach</h3>
+            <div class="pass-boxes">
+                <div class="pass-box">
+                    <div class="pass-num">1</div>
+                    <div class="pass-title">First Pass</div>
+                    <div class="pass-time">90 minutes</div>
+                    <div class="pass-desc">Answer everything you know immediately. Flag difficult questions and move on. Don't agonize.</div>
+                </div>
+                <div class="pass-box">
+                    <div class="pass-num">2</div>
+                    <div class="pass-title">Second Pass</div>
+                    <div class="pass-time">45 minutes</div>
+                    <div class="pass-desc">Return to flagged questions. Apply elimination techniques. Make your best educated guess.</div>
+                </div>
+                <div class="pass-box">
+                    <div class="pass-num">3</div>
+                    <div class="pass-title">Third Pass</div>
+                    <div class="pass-time">30 minutes</div>
+                    <div class="pass-desc">Review marked answers. Gut-check any changes. Only change if you are certain.</div>
+                </div>
+            </div>
+
+            <h3>Time Checkpoints</h3>
+            <p>Use these checkpoints to pace yourself. If you're behind, speed up on easy questions. If you're ahead, bank that time for flagged questions.</p>
+
+            <div class="timeline">
+                <div class="timeline-track">
+                    <div class="timeline-fill" style="width: 100%;"></div>
+                    <div class="timeline-marker" style="left: 0%;">
+                        <div class="label-top">START</div>
+                        <div class="dot"></div>
+                        <div class="label-bottom">0 min / Q0</div>
+                    </div>
+                    <div class="timeline-marker" style="left: 33%;">
+                        <div class="label-top">Checkpoint 1</div>
+                        <div class="dot"></div>
+                        <div class="label-bottom">55 min / Q37</div>
+                    </div>
+                    <div class="timeline-marker" style="left: 66%;">
+                        <div class="label-top">Checkpoint 2</div>
+                        <div class="dot"></div>
+                        <div class="label-bottom">110 min / Q73</div>
+                    </div>
+                    <div class="timeline-marker" style="left: 82%;">
+                        <div class="label-top">Done</div>
+                        <div class="dot"></div>
+                        <div class="label-bottom">135 min / Q110</div>
+                    </div>
+                    <div class="timeline-marker" style="left: 100%;">
+                        <div class="label-top">END</div>
+                        <div class="dot"></div>
+                        <div class="label-bottom">165 min (buffer)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout warning">
+                <p>If you reach Question 73 and more than 110 minutes have passed, stop flagging and start answering. A guessed answer is better than no answer.</p>
+            </div>
+        </div>
+
+        <!-- DOMAIN WEIGHTING -->
+        <h2>Domain Weighting Strategy</h2>
+        <div class="section">
+            <p>Not all domains are equal. Allocate your study time proportionally&mdash;but with a bias toward your weakest areas.</p>
+
+            <div class="bar-chart">
+                <div class="bar-row">
+                    <div class="bar-label">D2 &mdash; Security Principles</div>
+                    <div class="bar-track">
+                        <div class="bar-fill d2" style="width: 40%;">40%</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">D3 &mdash; AI-Assisted Security</div>
+                    <div class="bar-track">
+                        <div class="bar-fill d3" style="width: 24%;">24%</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">D4 &mdash; Governance &amp; Compliance</div>
+                    <div class="bar-track">
+                        <div class="bar-fill d4" style="width: 19%;">19%</div>
+                    </div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label">D1 &mdash; AI Concepts</div>
+                    <div class="bar-track">
+                        <div class="bar-fill d1" style="width: 17%;">17%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout critical">
+                <p><strong>Domain 2 is 40% of the exam.</strong> This is where you win or lose. Prioritize studying attacks, defenses, and data protection. If you nail Domain 2, you can afford to be weaker elsewhere.</p>
+            </div>
+
+            <ul>
+                <li><strong>Domain 3 (24%)</strong> &mdash; AI-assisted security is the second biggest area. Know how AI augments SOC workflows, threat detection, and incident response.</li>
+                <li><strong>Domain 4 (19%)</strong> &mdash; Governance and compliance. Lots of framework memorization: NIST AI RMF, EU AI Act risk levels, responsible AI principles. Use flashcards.</li>
+                <li><strong>Domain 1 (17%)</strong> &mdash; Foundational AI/ML concepts. Should be the easiest if you understand the fundamentals of how models work.</li>
+            </ul>
+        </div>
+
+        <!-- QUESTION ELIMINATION -->
+        <h2>Question Elimination Techniques</h2>
+        <div class="section">
+            <ol>
+                <li><strong>Read the ENTIRE question</strong> before looking at answers. Many questions have a twist in the last sentence.</li>
+                <li><strong>Identify the key verb</strong> &mdash; <em>identify, prevent, mitigate, implement, describe</em> each imply a different type of answer.</li>
+                <li><strong>Eliminate obviously wrong answers first.</strong> Usually 1&ndash;2 are clearly wrong, giving you a 50/50 shot at worst.</li>
+                <li>For <strong>"NOT" questions</strong>: find the 3 that DO belong. The odd one out is the answer.</li>
+                <li>For <strong>scenario questions</strong>: identify the domain first, then narrow to concepts within that domain.</li>
+            </ol>
+
+            <div class="callout warning">
+                <p><strong>Watch for absolute words</strong> &mdash; "always", "never", "only", "all". These are often incorrect because security rarely deals in absolutes.</p>
+            </div>
+
+            <div class="callout tip">
+                <p><strong>Watch for "best" or "most"</strong> &mdash; Multiple answers may be partially correct. Pick the MOST correct or MOST complete one. If stuck between two, re-read the scenario for a keyword that distinguishes them.</p>
+            </div>
+        </div>
+
+        <!-- COMMON TRAPS -->
+        <h2>Common Traps &amp; Confusing Pairs</h2>
+        <div class="section">
+            <p>CompTIA loves testing concepts that sound similar but have distinct meanings. Memorize these distinctions.</p>
+
+            <table class="trap-table">
+                <thead>
+                    <tr>
+                        <th>Concept A</th>
+                        <th></th>
+                        <th>Concept B</th>
+                        <th>Key Distinction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data Poisoning</td>
+                        <td class="vs">vs</td>
+                        <td>Model Poisoning</td>
+                        <td>Poisoning training <span class="keyword">DATA</span> vs poisoning model <span class="keyword">WEIGHTS</span> directly</td>
+                    </tr>
+                    <tr>
+                        <td>Transparency</td>
+                        <td class="vs">vs</td>
+                        <td>Explainability</td>
+                        <td>Can you <span class="keyword">SEE</span> the process vs can you <span class="keyword">UNDERSTAND</span> a specific decision</td>
+                    </tr>
+                    <tr>
+                        <td>Human-in-the-loop</td>
+                        <td class="vs">vs</td>
+                        <td>Human Oversight</td>
+                        <td>Approve <span class="keyword">EACH</span> decision vs <span class="keyword">ONGOING</span> monitoring</td>
+                    </tr>
+                    <tr>
+                        <td>Encryption In Transit</td>
+                        <td class="vs">vs</td>
+                        <td>At Rest vs In Use</td>
+                        <td><span class="keyword">MOVING</span> vs <span class="keyword">STORED</span> vs <span class="keyword">BEING PROCESSED</span></td>
+                    </tr>
+                    <tr>
+                        <td>Data Anonymization</td>
+                        <td class="vs">vs</td>
+                        <td>Data Masking</td>
+                        <td><span class="keyword">IRREVERSIBLE</span> vs format-preserving with <span class="keyword">FAKE</span> data</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout critical">
+                <p><strong>NIST AI RMF functions:</strong> <span class="keyword">Govern, Map, Measure, Manage</span> &mdash; Not OWASP, not MITRE. Don't mix up your frameworks.</p>
+            </div>
+
+            <div class="callout critical">
+                <p><strong>EU AI Act risk levels (top to bottom):</strong> <span class="keyword">Unacceptable &rarr; High &rarr; Limited &rarr; Minimal</span></p>
+            </div>
+        </div>
+
+        <!-- NIGHT BEFORE -->
+        <h2>Night Before Checklist</h2>
+        <div class="section">
+            <ul class="checklist">
+                <li>Review the 4 domain cheat sheets <span class="time-tag">30 min</span></li>
+                <li>Quick pass through the framework comparison matrix <span class="time-tag">10 min</span></li>
+                <li>Run through acronym speed drill <span class="time-tag">5 min</span></li>
+                <li>Skim the attack taxonomy <span class="time-tag">10 min</span></li>
+                <li>Get sleep &mdash; don't cram</li>
+            </ul>
+
+            <div class="callout tip">
+                <p><strong>If you don't know it by now, 2 more hours won't help.</strong> Sleep is more valuable than last-minute cramming. Your brain consolidates memories during sleep. Give it time to work.</p>
+            </div>
+        </div>
+
+        <!-- TEST DAY -->
+        <h2>Test Day Checklist</h2>
+        <div class="section">
+            <ul class="checklist">
+                <li><strong>Bring two forms of ID</strong> &mdash; primary (government-issued photo ID) and secondary</li>
+                <li><strong>Arrive 15 minutes early</strong> &mdash; you'll need time to check in and settle</li>
+                <li><strong>Brain dump immediately</strong> &mdash; as soon as you sit down, write memorized frameworks, acronyms, and key facts on scratch paper before starting</li>
+                <li><strong>Read every question carefully</strong> &mdash; CompTIA loves subtle wording differences</li>
+                <li><strong>Don't change answers unless certain</strong> &mdash; your first instinct is usually right</li>
+                <li><strong>Use all your time</strong> &mdash; don't rush to leave. Review is always worth it.</li>
+            </ul>
+
+            <div class="callout warning">
+                <p><strong>Brain dump priority order:</strong> NIST AI RMF functions, EU AI Act risk levels, attack taxonomy categories, key acronyms. Get these on paper while they're fresh.</p>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="score_tracker.html">Score Tracker</a>
+            <a href="../practice_exam.html">Practice Exam</a>
+            <a href="../cheatsheets/">Cheat Sheets</a>
+            <a href="../references/">References</a>
+        </div>
+    </div>
+</body>
+</html>
